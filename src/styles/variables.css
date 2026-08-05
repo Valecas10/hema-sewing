@@ -1,0 +1,82 @@
+:root {
+  /* ==========================
+     COLORS
+  ========================== */
+
+  --color-primary: #714f38;
+  --color-primary-light: #A67B5B;
+
+  --color-background: #FDFBF9;
+  --color-surface: #F5EFE6;
+  --color-accent: #EADBC8;
+
+  --color-text: #333333;
+  --color-text-secondary: #666666;
+
+  --color-border: #DDDDDD;
+
+  --color-success: #4CAF50;
+  --color-warning: #F4B400;
+  --color-danger: #D9534F;
+
+  /* ==========================
+     TYPOGRAPHY
+  ========================== */
+
+  --font-title: "Arapey", serif;
+  --font-body: "Aileron", sans-serif;
+
+  /* ==========================
+     FONT SIZES
+  ========================== */
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 2rem;
+  --font-size-2xl: 3rem;
+
+  /* ==========================
+     FONT WEIGHT
+  ========================== */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* ==========================
+     SPACING
+  ========================== */
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* ==========================
+     BORDER RADIUS
+  ========================== */
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* ==========================
+     SHADOWS
+  ========================== */
+
+  --shadow-sm: 0 2px 6px rgba(0,0,0,.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.12);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,.16);
+
+  /* ==========================
+     TRANSITIONS
+  ========================== */
+
+  --transition-fast: .2s ease;
+  --transition-normal: .3s ease;
+}
