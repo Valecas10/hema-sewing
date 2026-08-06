@@ -1,6 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import Home from "../pages/Home/Home"; 
+import Layout from "../components/layout/Layout/Layout";
+
+import Home from "../pages/Home/Home";
 import Catalogo from "../pages/Catalogo/Catalogo";
 import Producto from "../pages/Producto/Producto";
 import Carrito from "../pages/Carrito/Carrito";
@@ -9,23 +11,48 @@ import Tracking from "../pages/Tracking/Tracking";
 import Admin from "../pages/Admin/Admin";
 
 export default function AppRouter() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
+    return (
+        <Routes>
 
-        <Route path="/catalogo" element={<Catalogo />} />
+            <Route element={<Layout />}>
 
-        <Route path="/producto/:id" element={<Producto />} />
+                <Route
+                    path="/"
+                    element={<Home />}
+                />
 
-        <Route path="/carrito" element={<Carrito />} />
+                <Route
+                    path="/catalogo"
+                    element={<Catalogo />}
+                />
 
-        <Route path="/checkout" element={<Checkout />} />
+                <Route
+                    path="/producto/:id"
+                    element={<Producto />}
+                />
 
-        <Route path="/tracking" element={<Tracking />} />
+                <Route
+                    path="/carrito"
+                    element={<Carrito />}
+                />
 
-        <Route path="/admin" element={<Admin />} />
-      </Routes>
-    </BrowserRouter>
-  );
+                <Route
+                    path="/checkout"
+                    element={<Checkout />}
+                />
+
+                <Route
+                    path="/tracking"
+                    element={<Tracking />}
+                />
+
+                <Route
+                    path="/admin"
+                    element={<Admin />}
+                />
+
+            </Route>
+
+        </Routes>
+    );
 }
