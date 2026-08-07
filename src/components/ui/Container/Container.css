@@ -4,3 +4,11 @@
     margin: 0 auto;
     padding-inline: var(--space-lg);
 }
+
+@media (max-width: 768px) {
+
+    .container {
+        padding-inline: var(--space-md);
+    }
+
+}

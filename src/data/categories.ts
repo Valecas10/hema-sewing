@@ -42,5 +42,12 @@ export const categories: Category[] = [
         slug: "fundas-bidon",
         image: "/images/categories/fundas-bidon.webp",
         description: "Fundas para bidones."
+    },
+    {
+        id: 7,
+        name: "Bufandas",
+        slug: "bufandas",
+        image: "/images/categories/bufandas.webp",
+        description: "Bufandas de tela."
     }
 ];

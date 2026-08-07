@@ -1,4 +1,3 @@
-import Button from "../../ui/Button";
 import Container from "../../ui/Container";
 import Section from "../../ui/Section";
 import hero1 from "../../../assets/images/hero/hero-1.webp";
@@ -27,10 +26,6 @@ function Hero() {
                             Productos textiles confeccionados artesanalmente.
                             Diseños únicos, realizados con dedicación para acompañarte todos los días.
                         </p>
-
-                        <Button>
-                            Ver catálogo
-                        </Button>
 
                     </div>
 

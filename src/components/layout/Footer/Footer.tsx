@@ -9,7 +9,7 @@ function Footer() {
                 <div className="footer__content">
 
                     <div className="footer__brand">
-                        <h2>Hema Sewing</h2>
+                        <h2>HEMA SEWING</h2>
                         <p>
                             Productos textiles confeccionados artesanalmente.
                         </p>

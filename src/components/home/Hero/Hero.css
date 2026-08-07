@@ -61,3 +61,32 @@
 .hero__card:hover img {
     transform: scale(1.05);
 }
+
+@media (max-width: 992px) {
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero__content {
+        text-align: center;
+        align-items: center;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .hero__gallery {
+        flex-direction: column;
+    }
+
+    .hero__card {
+        width: 100%;
+    }
+
+    .hero__card:nth-child(2) {
+        margin-top: 0;
+    }
+
+}

@@ -38,3 +38,21 @@
 .navbar__cart {
     font-weight: var(--font-weight-medium);
 }
+
+@media (max-width: 768px) {
+
+    .navbar__content {
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--space-md);
+
+        height: auto;
+
+        padding-block: var(--space-lg);
+    }
+
+    .navbar__nav {
+        gap: var(--space-lg);
+    }
+
+}
