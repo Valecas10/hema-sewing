@@ -1,11 +1,18 @@
 .category-card {
     position: relative;
-
     overflow: hidden;
 
-    border-radius: var(--radius-medium);
-
     display: block;
+
+    border-radius: 24px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-4px);
 }
 
 .category-card__image {
@@ -13,6 +20,8 @@
     aspect-ratio: 1 / 1;
 
     object-fit: cover;
+
+    border-radius: inherit;
 }
 
 .category-card__overlay {

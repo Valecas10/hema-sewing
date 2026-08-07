@@ -4,11 +4,12 @@ import Layout from "../components/layout/Layout/Layout";
 
 import Home from "../pages/Home/Home";
 import Catalogo from "../pages/Catalogo/Catalogo";
-import Producto from "../pages/Producto/Producto";
 import Carrito from "../pages/Carrito/Carrito";
 import Checkout from "../pages/Checkout/Checkout";
 import Tracking from "../pages/Tracking/Tracking";
 import Admin from "../pages/Admin/Admin";
+import CatalogCategory from "../pages/CatalogCategory";
+import ProductPage from "../pages/ProductPage";
 
 export default function AppRouter() {
     return (
@@ -27,8 +28,13 @@ export default function AppRouter() {
                 />
 
                 <Route
-                    path="/producto/:id"
-                    element={<Producto />}
+                    path="/catalogo/:slug"
+                    element={<CatalogCategory />}
+                />
+
+                <Route
+                    path="/producto/:slug"
+                    element={<ProductPage />}
                 />
 
                 <Route

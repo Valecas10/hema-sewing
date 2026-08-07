@@ -1,0 +1,21 @@
+.related-products {
+    margin-top: var(--space-2xl);
+}
+
+.related-products h2 {
+    margin-bottom: var(--space-xl);
+}
+
+.related-products__grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: var(--space-xl);
+}
+
+@media (max-width: 768px) {
+    .related-products__grid {
+        grid-template-columns: 1fr;
+    }
+}

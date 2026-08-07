@@ -4,10 +4,22 @@ import { products } from "../../../data";
 
 import "./ProductGrid.css";
 
-function ProductGrid() {
+interface ProductGridProps {
+    categorySlug?: string;
+}
+
+function ProductGrid({
+    categorySlug,
+}: ProductGridProps) {
+    const filteredProducts = categorySlug
+        ? products.filter(
+              (product) =>
+                  product.category.slug === categorySlug
+          )
+        : products;
     return (
         <div className="product-grid">
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
                 <ProductCard
                     key={product.id}
                     product={product}
