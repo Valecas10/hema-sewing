@@ -1,5 +1,6 @@
 import type { Product } from "../types";
 import { categories } from "./categories";
+import { fabrics } from "./fabrics";
 
 export const products: Product[] = [
     {
@@ -8,15 +9,23 @@ export const products: Product[] = [
         slug: "tote-bag-magnolia",
         description: "Tote Bag confeccionada artesanalmente.",
         price: 25000,
-        stock: 5,
+        stock: 0,
         featured: true,
         category: categories[0],
+        fabric: fabrics[1],
+        embroidery: true,
         images: [
             {
                 id: 1,
                 url: "/images/products/tote-magnolia.webp",
                 alt: "Tote Bag Magnolia",
                 order: 1
+            },
+            {
+                id: 2,
+                url: "/images/products/tote-magnolia-2.jpg",
+                alt: "Tote Bag Magnolia",
+                order: 2
             }
         ]
     },
@@ -26,9 +35,11 @@ export const products: Product[] = [
         slug: "posavasos-flores",
         description: "Juego de posavasos confeccionados en tela.",
         price: 8000,
-        stock: 10,
+        stock: 0,
         featured: true,
         category: categories[1],
+        fabric: fabrics[1],
+        embroidery: false,
         images: [
             {
                 id: 2,
@@ -44,9 +55,11 @@ export const products: Product[] = [
         slug: "tote-bag-lavanda",
         description: "Tote Bag confeccionada artesanalmente.",
         price: 26000,
-        stock: 4,
+        stock: -1,
         featured: true,
         category: categories[0],
+        fabric: fabrics[3],
+        embroidery: true,
         images: [
             {
                 id: 3,
@@ -65,6 +78,8 @@ export const products: Product[] = [
         stock: 7,
         featured: false,
         category: categories[0],
+        fabric: fabrics[1],
+        embroidery: true,
         images: [
             {
                 id: 4,
@@ -83,6 +98,8 @@ export const products: Product[] = [
         stock: 8,
         featured: true,
         category: categories[1],
+        fabric: fabrics[0],
+        embroidery: false,
         images: [
             {
                 id: 5,
@@ -101,6 +118,8 @@ export const products: Product[] = [
         stock: 12,
         featured: false,
         category: categories[1],
+        fabric: fabrics[2],
+        embroidery: false,
         images: [
             {
                 id: 6,
@@ -119,6 +138,8 @@ export const products: Product[] = [
         stock: 6,
         featured: true,
         category: categories[2],
+        fabric: fabrics[1],
+        embroidery: false,
         images: [
             {
                 id: 7,
@@ -137,6 +158,8 @@ export const products: Product[] = [
         stock: 9,
         featured: false,
         category: categories[2],
+        fabric: fabrics[3],
+        embroidery: true,
         images: [
             {
                 id: 8,
@@ -155,6 +178,8 @@ export const products: Product[] = [
         stock: 5,
         featured: true,
         category: categories[3],
+        fabric: fabrics[2],
+        embroidery: false,
         images: [
             {
                 id: 9,
@@ -173,6 +198,8 @@ export const products: Product[] = [
         stock: 3,
         featured: false,
         category: categories[3],
+        fabric: fabrics[0],
+        embroidery: true,
         images: [
             {
                 id: 10,
@@ -191,6 +218,8 @@ export const products: Product[] = [
         stock: 20,
         featured: true,
         category: categories[4],
+        fabric: fabrics[1],
+        embroidery: true,
         images: [
             {
                 id: 11,
@@ -209,6 +238,8 @@ export const products: Product[] = [
         stock: 15,
         featured: false,
         category: categories[4],
+        fabric: fabrics[3],
+        embroidery: true,
         images: [
             {
                 id: 12,
@@ -227,6 +258,8 @@ export const products: Product[] = [
         stock: 6,
         featured: true,
         category: categories[5],
+        fabric: fabrics[2],
+        embroidery: false,
         images: [
             {
                 id: 13,
@@ -245,6 +278,8 @@ export const products: Product[] = [
         stock: 5,
         featured: false,
         category: categories[5],
+        fabric: fabrics[0],
+        embroidery: true,
         images: [
             {
                 id: 14,
@@ -263,6 +298,8 @@ export const products: Product[] = [
         stock: 4,
         featured: true,
         category: categories[6],
+        fabric: fabrics[1],
+        embroidery: false,
         images: [
             {
                 id: 15,
@@ -281,6 +318,8 @@ export const products: Product[] = [
         stock: 5,
         featured: true,
         category: categories[6],
+        fabric: fabrics[3],
+        embroidery: true,
         images: [
             {
                 id: 16,
@@ -299,6 +338,8 @@ export const products: Product[] = [
         stock: 8,
         featured: false,
         category: categories[0],
+        fabric: fabrics[2],
+        embroidery: false,
         images: [
             {
                 id: 17,
@@ -317,6 +358,8 @@ export const products: Product[] = [
         stock: 7,
         featured: false,
         category: categories[1],
+        fabric: fabrics[0],
+        embroidery: true,
         images: [
             {
                 id: 18,
@@ -335,6 +378,8 @@ export const products: Product[] = [
         stock: 6,
         featured: true,
         category: categories[2],
+        fabric: fabrics[1],
+        embroidery: true,
         images: [
             {
                 id: 19,
@@ -353,6 +398,8 @@ export const products: Product[] = [
         stock: 3,
         featured: false,
         category: categories[6],
+        fabric: fabrics[2],
+        embroidery: true,
         images: [
             {
                 id: 20,

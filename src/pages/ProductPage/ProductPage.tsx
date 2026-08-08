@@ -10,6 +10,7 @@ import RelatedProducts from "../../components/product/RelatedProducts";
 import { products } from "../../data";
 
 import "./ProductPage.css";
+import Breadcrumbs from "../../components/ui/BreadCrum/Breadcrumbs";
 
 function ProductPage() {
     const { slug } = useParams();
@@ -30,6 +31,26 @@ function ProductPage() {
     return (
         <Section>
             <Container>
+                <Breadcrumbs
+                    items={[
+                        {
+                            label: "Inicio",
+                            path: "/",
+                        },
+                        {
+                            label: "Catálogo",
+                            path: "/catalogo",
+                        },
+                        {
+                            label: product.category.name,
+                            path: `/catalogo/${product.category.slug}`,
+                        },
+                        {
+                            label: product.name,
+                            path: `/producto/${product.slug}`,
+                        },
+                    ]}
+                />
                 <h1 className="product-page__title">
                     {product.name}
                 </h1>

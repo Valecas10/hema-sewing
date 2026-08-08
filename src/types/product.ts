@@ -1,5 +1,6 @@
 import type { Category } from "./category";
 import type { ProductImage } from "./product-image";
+import type { Fabric } from "./fabric";
 
 export interface Product {
     id: number;
@@ -11,6 +12,8 @@ export interface Product {
     featured: boolean;
 
     category: Category;
+    fabric: Fabric;
+    embroidery: boolean;
 
     images: ProductImage[];
 }
