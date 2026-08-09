@@ -29,6 +29,6 @@
 }
 
 .product-card__price {
-    color: var(--marron-oscuro);
+    color: var(--color-primary);
     font-weight: 600;
 }

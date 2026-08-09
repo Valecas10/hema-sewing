@@ -36,7 +36,36 @@
 }
 
 .navbar__cart {
-    font-weight: var(--font-weight-medium);
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+
+    text-decoration: none;
+}
+
+.navbar__cart-count {
+    position: absolute;
+
+    top: -8px;
+    right: -10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 20px;
+    height: 20px;
+
+    padding: 0 5px;
+
+    border-radius: 50%;
+
+    background-color: var(--color-primary);
+    color: white;
+
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
 }
 
 @media (max-width: 768px) {

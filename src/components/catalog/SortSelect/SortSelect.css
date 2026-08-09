@@ -14,8 +14,8 @@
 .sort-select select {
     padding: 0.75rem 1rem;
 
-    border: 1px solid var(--borde-suave);
-    border-radius: var(--radius-medium);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
 
     background-color: var(--beige-fondo);
 
@@ -30,5 +30,5 @@
 .sort-select select:focus {
     outline: none;
 
-    border-color: var(--marron-claro);
+    border-color: var(--color-primary-light);
 }

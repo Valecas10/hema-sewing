@@ -1,9 +1,17 @@
 import { NavLink } from "react-router-dom";
 import Container from "../../ui/Container";
+import { useCart } from "../../../context/CartContext";
 
 import "./Navbar.css";
 
 function Navbar() {
+
+    const { items } = useCart();
+
+    const cartCount = items.reduce(
+        (total, item) => total + item.quantity,
+        0
+    );
     return (
         <header className="navbar">
             <Container>
@@ -34,9 +42,15 @@ function Navbar() {
 
                     <NavLink
                         to="/carrito"
-                        className="navbar__cart"
-                    >
-                        Carrito
+                            className="navbar__cart"
+                        >
+                            🛒
+
+                            {cartCount > 0 && (
+                                <span className="navbar__cart-count">
+                                    {cartCount}
+                                </span>
+                            )}
                     </NavLink>
 
                 </div>

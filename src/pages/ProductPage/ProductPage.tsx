@@ -62,6 +62,7 @@ function ProductPage() {
                 </div>
 
                 <RelatedProducts product={product} />
+
             </Container>
         </Section>
     );

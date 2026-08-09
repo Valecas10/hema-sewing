@@ -1,0 +1,32 @@
+
+
+.add-to-cart-button {
+    width: 100%;
+
+    padding: 1rem;
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-primary);
+
+    color: white;
+
+    font-family: var(--font-aileron);
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: opacity 0.2s ease;
+}
+
+.add-to-cart-button:hover {
+    opacity: 0.9;
+}
+
+.add-to-cart-button:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}

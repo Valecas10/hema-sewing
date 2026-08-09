@@ -1,3 +1,5 @@
+
+
 .product-info {
     display: flex;
     flex-direction: column;
@@ -6,7 +8,7 @@
 }
 
 .product-info__category {
-    color: var(--marron-claro);
+    color: var(--color-primary-light);
 
     font-weight: 600;
 }
@@ -16,23 +18,10 @@
 }
 
 .product-info__price {
-    color: var(--marron-oscuro);
+    color: var(--color-primary);
 
     font-size: 2rem;
     font-weight: bold;
-}
-
-.product-info__button {
-    padding: 1rem;
-
-    border: none;
-    border-radius: var(--radius-medium);
-
-    background-color: var(--marron-oscuro);
-
-    color: white;
-
-    cursor: pointer;
 }
 
 .product-info__stock {
@@ -58,7 +47,7 @@
     height: 40px;
 
     border: none;
-    border-radius: var(--radius-small);
+    border-radius: var(--radius-sm);
 
     cursor: pointer;
 }

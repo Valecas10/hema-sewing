@@ -9,8 +9,8 @@
 
     padding: 0.9rem 1.2rem;
 
-    border: 1px solid var(--borde-suave);
-    border-radius: var(--radius-medium);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
 
     font-size: 1rem;
     font-family: var(--font-aileron);
@@ -25,7 +25,7 @@
 .search-bar__input:focus {
     outline: none;
 
-    border-color: var(--marron-claro);
+    border-color: var(--color-primary-light);
 
     box-shadow: 0 0 0 3px rgba(166, 123, 91, 0.15);
 }

@@ -10,55 +10,60 @@ import Tracking from "../pages/Tracking/Tracking";
 import Admin from "../pages/Admin/Admin";
 import CatalogCategory from "../pages/CatalogCategory";
 import ProductPage from "../pages/ProductPage";
+import { CartProvider } from "../context/CartContext";
 
 export default function AppRouter() {
     return (
-        <Routes>
+        <CartProvider>
 
-            <Route element={<Layout />}>
+            <Routes>
+            
+                <Route element={<Layout />}>
 
-                <Route
-                    path="/"
-                    element={<Home />}
-                />
+                    <Route
+                        path="/"
+                        element={<Home />}
+                    />
 
-                <Route
-                    path="/catalogo"
-                    element={<Catalogo />}
-                />
+                    <Route
+                        path="/catalogo"
+                        element={<Catalogo />}
+                    />
 
-                <Route
-                    path="/catalogo/:slug"
-                    element={<CatalogCategory />}
-                />
+                    <Route
+                        path="/catalogo/:slug"
+                        element={<CatalogCategory />}
+                    />
 
-                <Route
-                    path="/producto/:slug"
-                    element={<ProductPage />}
-                />
+                    <Route
+                        path="/producto/:slug"
+                        element={<ProductPage />}
+                    />
 
-                <Route
-                    path="/carrito"
-                    element={<Carrito />}
-                />
+                    <Route
+                        path="/carrito"
+                        element={<Carrito />}
+                    />
 
-                <Route
-                    path="/checkout"
-                    element={<Checkout />}
-                />
+                    <Route
+                        path="/checkout"
+                        element={<Checkout />}
+                    />
 
-                <Route
-                    path="/tracking"
-                    element={<Tracking />}
-                />
+                    <Route
+                        path="/tracking"
+                        element={<Tracking />}
+                    />
 
-                <Route
-                    path="/admin"
-                    element={<Admin />}
-                />
+                    <Route
+                        path="/admin"
+                        element={<Admin />}
+                    />
 
-            </Route>
+                </Route>
 
-        </Routes>
+            </Routes>
+            
+        </CartProvider>
     );
 }

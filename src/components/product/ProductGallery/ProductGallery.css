@@ -7,7 +7,7 @@
 .product-gallery__main-image {
     width: 100%;
 
-    border-radius: var(--radius-large);
+    border-radius: var(--radius-lg);
 
     object-fit: cover;
 }
@@ -23,7 +23,7 @@
     width: 80px;
     height: 80px;
 
-    border-radius: var(--radius-small);
+    border-radius: var(--radius-sm);
 
     cursor: pointer;
 

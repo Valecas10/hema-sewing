@@ -2,7 +2,10 @@ import type { Product } from "../../../types";
 
 import "./ProductInfo.css";
 
+import AddToCartButton from "../../cart/AddToCartButton";
+
 import { useState } from "react";
+
 
 interface ProductInfoProps {
     product: Product;
@@ -15,9 +18,10 @@ function ProductInfo({
     const [quantity, setQuantity] = useState(1);
 
     function increaseQuantity() {
-        const unlimitedStock = product.stock === -1;
-
-        if (unlimitedStock || quantity < product.stock) {
+        if (
+            product.stock === -1 ||
+            quantity < product.stock
+        ) {
             setQuantity(quantity + 1);
         }
     }
@@ -47,13 +51,24 @@ function ProductInfo({
             )}
 
             <div className="product-info__quantity">
-                <button onClick={decreaseQuantity}>
+                 <button
+                    type="button"
+                    onClick={decreaseQuantity}
+                    disabled={quantity <= 1}
+                >
                     −
                 </button>
 
                 <span>{quantity}</span>
 
-                <button onClick={increaseQuantity}>
+                <button
+                    type="button"
+                    onClick={increaseQuantity}
+                    disabled={
+                        product.stock !== -1 &&
+                        quantity >= product.stock
+                    }
+                >
                     +
                 </button>
             </div>
@@ -66,9 +81,10 @@ function ProductInfo({
                 ${product.price}
             </p>
 
-            <button className="product-info__button">
-                Agregar al carrito
-            </button>
+            <AddToCartButton
+                product={product}
+                quantity={quantity}
+            />
         </div>
     );
 }
