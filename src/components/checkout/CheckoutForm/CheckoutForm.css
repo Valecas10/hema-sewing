@@ -1,0 +1,138 @@
+.checkout-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.checkout-form__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+
+    padding: var(--space-xl);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-background);
+}
+
+.checkout-form__section h2 {
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-family: var(--font-title);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-normal);
+}
+
+.checkout-form__row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+}
+
+.checkout-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.checkout-form__field label {
+    color: var(--color-text);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+.checkout-form__field input {
+    width: 100%;
+
+    padding: var(--space-sm) var(--space-md);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+
+    background-color: var(--color-background);
+    color: var(--color-text);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+
+    transition: border-color var(--transition-fast);
+}
+
+.checkout-form__field input:focus {
+    outline: none;
+
+    border-color: var(--color-primary-light);
+}
+
+.checkout-form__options {
+    display: flex;
+    gap: var(--space-lg);
+}
+
+.checkout-form__option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+
+    padding: var(--space-md);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+
+    cursor: pointer;
+}
+
+.checkout-form__option input {
+    accent-color: var(--color-primary);
+}
+
+.checkout-form__shipping {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.checkout-form__submit {
+    width: 100%;
+
+    padding: var(--space-md);
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-primary);
+    color: white;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+
+    cursor: pointer;
+
+    transition: background-color var(--transition-fast);
+}
+
+.checkout-form__submit:hover {
+    background-color: var(--color-primary-light);
+}
+
+@media (max-width: 600px) {
+    .checkout-form__row {
+        grid-template-columns: 1fr;
+    }
+
+    .checkout-form__options {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .checkout-form__section {
+        padding: var(--space-lg);
+    }
+}

@@ -11,6 +11,7 @@ import Admin from "../pages/Admin/Admin";
 import CatalogCategory from "../pages/CatalogCategory";
 import ProductPage from "../pages/ProductPage";
 import { CartProvider } from "../context/CartContext";
+import OrderConfirmation from "../pages/OrderConfirmation/OrderConfirmation";
 
 export default function AppRouter() {
     return (
@@ -48,6 +49,11 @@ export default function AppRouter() {
                     <Route
                         path="/checkout"
                         element={<Checkout />}
+                    />
+
+                    <Route
+                        path="/pedido-confirmado"
+                        element={<OrderConfirmation />}
                     />
 
                     <Route
