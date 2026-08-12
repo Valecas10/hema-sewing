@@ -1,5 +1,8 @@
 import express from "express";
 import cors from "cors";
+import productRoutes from "./routes/productRoutes";
+import categoryRoutes from "./routes/categoryRoutes";
+import fabricRoutes from "./routes/fabricRoutes";
 
 const app = express();
 
@@ -15,8 +18,24 @@ app.get("/api/health", (_req, res) => {
     });
 });
 
+app.use(
+    "/api/products",
+    productRoutes
+);
+
+app.use(
+    "/api/categories",
+    categoryRoutes
+);
+
+app.use(
+    "/api/fabrics",
+    fabricRoutes
+);
+
 app.listen(PORT, () => {
     console.log(
         `Servidor ejecutándose en http://localhost:${PORT}`
     );
 });
+

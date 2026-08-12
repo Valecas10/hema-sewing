@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import Container from "../../components/ui/Container";
 import Section from "../../components/ui/Section";
@@ -7,7 +8,8 @@ import ProductGallery from "../../components/product/ProductGallery";
 import ProductInfo from "../../components/product/ProductInfo";
 import RelatedProducts from "../../components/product/RelatedProducts";
 
-import { products } from "../../data";
+import type { Product } from "../../types";
+import { getProductBySlug } from "../../services/productService";
 
 import "./ProductPage.css";
 import Breadcrumbs from "../../components/ui/BreadCrum/Breadcrumbs";
@@ -15,17 +17,46 @@ import Breadcrumbs from "../../components/ui/BreadCrum/Breadcrumbs";
 function ProductPage() {
     const { slug } = useParams();
 
-    const product = products.find(
-        (product) => product.slug === slug
-    );
+    const [product, setProduct] =
+        useState<Product | null>(null);
 
-    console.log(product);
-    console.log(slug);
-    console.log("product");
+    const [loading, setLoading] =
+        useState(true);
 
+    const [error, setError] =
+        useState("");
 
-    if (!product) {
-        return <h1>Producto no encontrado</h1>;
+    useEffect(() => {
+        if (!slug) {
+            setError("Producto no encontrado.");
+            setLoading(false);
+            return;
+        }
+
+        getProductBySlug(slug)
+            .then((data) => {
+                setProduct(data);
+            })
+            .catch(() => {
+                setError(
+                    "No se pudo cargar el producto."
+                );
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, [slug]);
+
+    if (loading) {
+        return <p>Cargando producto...</p>;
+    }
+
+    if (error || !product) {
+        return (
+            <p>
+                {error || "Producto no encontrado."}
+            </p>
+        );
     }
 
     return (
@@ -51,18 +82,24 @@ function ProductPage() {
                         },
                     ]}
                 />
+
                 <h1 className="product-page__title">
                     {product.name}
                 </h1>
 
                 <div className="product-page__content">
-                    <ProductGallery product={product} />
+                    <ProductGallery
+                        product={product}
+                    />
 
-                    <ProductInfo product={product} />
+                    <ProductInfo
+                        product={product}
+                    />
                 </div>
 
-                <RelatedProducts product={product} />
-
+                <RelatedProducts
+                    product={product}
+                />
             </Container>
         </Section>
     );

@@ -1,10 +1,10 @@
 import ProductCard from "../../product/ProductCard";
-
-import { products } from "../../../data";
+import type { Product } from "../../../types";
 
 import "./ProductGrid.css";
 
 interface ProductGridProps {
+    products: Product[];
     categorySlug?: string;
     search?: string;
     fabric?: string;
@@ -13,6 +13,7 @@ interface ProductGridProps {
 }
 
 function ProductGrid({
+    products,
     categorySlug,
     search = "",
     fabric = "all",
