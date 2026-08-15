@@ -1,17 +1,17 @@
 import ProductCard from "../ProductCard";
 
-import { products } from "../../../data";
-
 import type { Product } from "../../../types";
 
 import "./RelatedProducts.css";
 
 interface RelatedProductsProps {
     product: Product;
+    products: Product[];
 }
 
 function RelatedProducts({
     product,
+    products,
 }: RelatedProductsProps) {
     const relatedProducts = products
         .filter(
@@ -27,10 +27,10 @@ function RelatedProducts({
             <h2>Productos relacionados</h2>
 
             <div className="related-products__grid">
-                {relatedProducts.map((product) => (
+                {relatedProducts.map((relatedProduct) => (
                     <ProductCard
-                        key={product.id}
-                        product={product}
+                        key={relatedProduct.id}
+                        product={relatedProduct}
                     />
                 ))}
             </div>

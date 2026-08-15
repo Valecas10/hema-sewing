@@ -2,30 +2,46 @@ import CheckoutForm, {
     type CheckoutFormData,
 } from "../../components/checkout/CheckoutForm";
 import CheckoutSummary from "../../components/checkout/CheckoutSummary";
-import { useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Toast from "../../components/ui/Toast/Toast";
+
+import { createOrder } from "../../services/orderService";
 
 import "./Checkout.css";
 
 function Checkout() {
-    const [orderData, setOrderData] =
-        useState<CheckoutFormData | null>(null);
-
+    const [error, setError] = useState("");
     const { items, clearCart } = useCart();
     const navigate = useNavigate();
 
-    function handleOrderSubmit(data: CheckoutFormData) {
-        setOrderData(data);
+    async function handleOrderSubmit(
+        data: CheckoutFormData
+    ) {
+        setError("");
 
-        console.log("Pedido:", {
-            customer: data,
-            items,
-        });
+        try {
+            const order = await createOrder({
+                ...data,
+                items: items.map((item) => ({
+                    productId: item.product.id,
+                    quantity: item.quantity,
+                })),
+            });
 
-        clearCart();
+            console.log("Pedido creado:", order);
 
-        navigate("/pedido-confirmado");
+            clearCart();
+
+            navigate("/pedido-confirmado");
+        } catch (error) {
+            setError(
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo crear el pedido."
+            );
+        }
     }
 
     return (
@@ -34,6 +50,13 @@ function Checkout() {
                 <h1>Finalizar compra</h1>
 
                 <div className="checkout-page__content">
+                    {error && (
+                        <Toast
+                            message={error}
+                            type="error"
+                            onClose={() => setError("")}
+                        />
+                    )}
                     <CheckoutForm
                         onSubmit={handleOrderSubmit}
                     />

@@ -10,7 +10,6 @@ generator client {
 
 datasource db {
     provider = "postgresql"
-    url      = env("DATABASE_URL")
 }
 
 model Category {
@@ -48,6 +47,7 @@ model Product {
     fabric      Fabric    @relation(fields: [fabricId], references: [id])
 
     images      ProductImage[]
+    orderItems OrderItem[]
 }
 
 model ProductImage {
@@ -58,4 +58,34 @@ model ProductImage {
 
     productId Int
     product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Order {
+    id             Int         @id @default(autoincrement())
+    firstName      String
+    lastName       String
+    email          String
+    phone          String
+
+    deliveryMethod String
+    address        String?
+    city           String?
+    postalCode     String?
+
+    total          Int
+    createdAt      DateTime    @default(now())
+
+    items          OrderItem[]
+}
+
+model OrderItem {
+    id        Int     @id @default(autoincrement())
+    quantity  Int
+    price     Int
+
+    orderId   Int
+    productId Int
+
+    order     Order   @relation(fields: [orderId], references: [id])
+    product   Product @relation(fields: [productId], references: [id])
 }

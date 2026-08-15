@@ -3,6 +3,7 @@ import cors from "cors";
 import productRoutes from "./routes/productRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
 import fabricRoutes from "./routes/fabricRoutes";
+import orderRoutes from "./routes/orderRoutes";
 
 const app = express();
 
@@ -31,6 +32,11 @@ app.use(
 app.use(
     "/api/fabrics",
     fabricRoutes
+);
+
+app.use(
+    "/api/orders",
+    orderRoutes
 );
 
 app.listen(PORT, () => {

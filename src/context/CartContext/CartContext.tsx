@@ -69,21 +69,35 @@ export function CartProvider({
     ) {
         setItems((currentItems) => {
             const existingItem = currentItems.find(
-                (item) =>
-                    item.product.id === product.id
+                (item) => item.product.id === product.id
             );
 
             if (existingItem) {
+                const newQuantity =
+                    existingItem.quantity + quantity;
+
+                if (
+                    product.stock !== -1 &&
+                    newQuantity > product.stock
+                ) {
+                    return currentItems;
+                }
+
                 return currentItems.map((item) =>
                     item.product.id === product.id
                         ? {
-                              ...item,
-                              quantity:
-                                  item.quantity +
-                                  quantity,
-                          }
+                            ...item,
+                            quantity: newQuantity,
+                        }
                         : item
                 );
+            }
+
+            if (
+                product.stock !== -1 &&
+                quantity > product.stock
+            ) {
+                return currentItems;
             }
 
             return [
@@ -110,17 +124,29 @@ export function CartProvider({
         quantity: number
     ) {
         setItems((currentItems) =>
-            currentItems.map((item) =>
-                item.product.id === productId
-                    ? {
-                          ...item,
-                          quantity,
-                      }
-                    : item
-            )
+            currentItems.map((item) => {
+                if (item.product.id !== productId) {
+                    return item;
+                }
+
+                if (quantity < 1) {
+                    return item;
+                }
+
+                if (
+                    item.product.stock !== -1 &&
+                    quantity > item.product.stock
+                ) {
+                    return item;
+                }
+
+                return {
+                    ...item,
+                    quantity,
+                };
+            })
         );
     }
-
     function clearCart() {
         setItems([]);
     }

@@ -9,10 +9,15 @@ import ProductInfo from "../../components/product/ProductInfo";
 import RelatedProducts from "../../components/product/RelatedProducts";
 
 import type { Product } from "../../types";
-import { getProductBySlug } from "../../services/productService";
+import {
+    getProductBySlug,
+    getProducts,
+} from "../../services/productService";
 
 import "./ProductPage.css";
 import Breadcrumbs from "../../components/ui/BreadCrum/Breadcrumbs";
+
+
 
 function ProductPage() {
     const { slug } = useParams();
@@ -26,6 +31,9 @@ function ProductPage() {
     const [error, setError] =
         useState("");
 
+    const [products, setProducts] =
+        useState<Product[]>([]);
+
     useEffect(() => {
         if (!slug) {
             setError("Producto no encontrado.");
@@ -33,9 +41,13 @@ function ProductPage() {
             return;
         }
 
-        getProductBySlug(slug)
-            .then((data) => {
-                setProduct(data);
+        Promise.all([
+            getProductBySlug(slug),
+            getProducts(),
+        ])
+            .then(([productData, productsData]) => {
+                setProduct(productData);
+                setProducts(productsData);
             })
             .catch(() => {
                 setError(
@@ -99,6 +111,7 @@ function ProductPage() {
 
                 <RelatedProducts
                     product={product}
+                    products={products}
                 />
             </Container>
         </Section>
