@@ -1,0 +1,133 @@
+.admin-products {
+    min-height: 100vh;
+}
+
+.admin-products__main {
+    min-height: 100vh;
+    margin-left: 240px;
+    padding: 40px;
+}
+
+.admin-products__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.admin-products__eyebrow {
+    display: block;
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    opacity: 0.6;
+}
+
+.admin-products__header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.admin-products__add {
+    padding: 11px 16px;
+
+    border: 0;
+    border-radius: 6px;
+
+    background-color: var(--color-primary);
+    color: var(--color-background);
+
+    font: inherit;
+    cursor: pointer;
+}
+
+.admin-products__table-wrapper {
+    margin-top: 32px;
+
+    overflow-x: auto;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+}
+
+.admin-products__table {
+    width: 100%;
+    min-width: 900px;
+
+    border-collapse: collapse;
+}
+
+.admin-products__table th,
+.admin-products__table td {
+    padding: 16px;
+
+    border-bottom: 1px solid var(--color-border);
+
+    text-align: left;
+    font-size: 14px;
+}
+
+.admin-products__table th {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    opacity: 0.65;
+}
+
+.admin-products__table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.admin-products__product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-products__product img {
+    width: 48px;
+    height: 48px;
+
+    object-fit: cover;
+
+    border-radius: 4px;
+}
+
+.admin-products__actions {
+    display: flex;
+    gap: 8px;
+}
+
+.admin-products__actions button {
+    padding: 7px 10px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+
+    background: transparent;
+
+    font: inherit;
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.admin-products__actions button:hover {
+    background-color: var(--color-secondary);
+}
+
+.stock-low {
+    font-weight: 600;
+}
+
+.stock-unlimited {
+    opacity: 0.65;
+}

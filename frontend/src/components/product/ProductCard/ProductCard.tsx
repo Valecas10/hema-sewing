@@ -18,8 +18,8 @@ function ProductCard({ product }: ProductCardProps) {
         >
             <Card className="product-card">
                 <img
-                    src={product.images[0].url}
-                    alt={product.images[0].alt}
+                    src={product.images?.[0]?.url || ""}
+                    alt={product.images?.[0]?.alt || ""}
                     className="product-card__image"
                 />
 

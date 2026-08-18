@@ -3,10 +3,11 @@ import "dotenv/config";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import pg from "pg";
+import bcrypt from "bcryptjs";
 
-import { categories } from "../../src/data/categories";
-import { fabrics } from "../../src/data/fabrics";
-import { products } from "../../src/data/products";
+import { categories } from "../../frontend/src/data/categories";
+import { fabrics } from "../../frontend/src/data/fabrics";
+import { products } from "../../frontend/src/data/products";
 
 const pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL
@@ -105,6 +106,26 @@ async function main() {
     console.log(
         `✅ ${products.length} productos creados`
     );
+
+    const hashedPassword = await bcrypt.hash(
+        "admin123",
+        10
+    );
+
+    await prisma.admin.upsert({
+        where: {
+            email: "admin@hema-sewing.com",
+        },
+        update: {
+            password: hashedPassword,
+        },
+        create: {
+            email: "admin@hema-sewing.com",
+            password: hashedPassword,
+        },
+    });
+
+    console.log("✅ Administrador creado");
 
     console.log("🌱 Seed completado");
 }

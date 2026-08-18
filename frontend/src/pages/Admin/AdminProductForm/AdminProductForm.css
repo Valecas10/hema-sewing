@@ -1,0 +1,144 @@
+.admin-product-form {
+    min-height: 100vh;
+}
+
+.admin-product-form__main {
+    min-height: 100vh;
+
+    margin-left: 240px;
+
+    padding: 40px;
+}
+
+.admin-product-form__header {
+    padding-bottom: 28px;
+
+    border-bottom: 1px solid var(--color-border);
+}
+
+.admin-product-form__eyebrow {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    opacity: 0.6;
+}
+
+.admin-product-form__header h1 {
+    margin: 0;
+
+    font-size: 32px;
+}
+
+.admin-product-form__form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    max-width: 850px;
+
+    margin-top: 32px;
+}
+
+.admin-product-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    flex: 1;
+}
+
+.admin-product-form__field label {
+    font-size: 14px;
+}
+
+.admin-product-form__field input,
+.admin-product-form__field textarea,
+.admin-product-form__field select {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+
+    background: transparent;
+
+    font: inherit;
+}
+
+.admin-product-form__field textarea {
+    resize: vertical;
+}
+
+.admin-product-form__field input:focus,
+.admin-product-form__field textarea:focus,
+.admin-product-form__field select:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+}
+
+.admin-product-form__row {
+    display: flex;
+    gap: 20px;
+}
+
+.admin-product-form__options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.admin-product-form__options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 14px;
+}
+
+.admin-product-form__options input {
+    width: 16px;
+    height: 16px;
+}
+
+.admin-product-form__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    padding-top: 12px;
+}
+
+.admin-product-form__actions button {
+    padding: 11px 18px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+
+    background: transparent;
+
+    font: inherit;
+
+    cursor: pointer;
+}
+
+.admin-product-form__actions button:last-child {
+    border-color: var(--color-primary);
+
+    background-color: var(--color-primary);
+    color: var(--color-background);
+}
+
+.admin-product-form__error {
+    max-width: 850px;
+
+    margin-top: 24px;
+    padding: 12px 16px;
+
+    border-left: 3px solid var(--color-primary);
+}
