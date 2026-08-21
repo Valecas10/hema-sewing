@@ -16,6 +16,8 @@ import {
 import "./AdminProductForm.css";
 
 function AdminProductForm() {
+    const [imageUrl, setImageUrl] = useState("");
+    
     const navigate = useNavigate();
 
     const { id } = useParams();
@@ -92,6 +94,11 @@ function AdminProductForm() {
                     setEmbroidery(
                         product.embroidery
                     );
+                    setImageUrl(
+                        product.images.length > 0
+                            ? product.images[0].url
+                            : ""
+                    );
                 }
             } catch (error) {
                 setError(
@@ -130,13 +137,33 @@ function AdminProductForm() {
             if (isEditing) {
                 await updateAdminProduct(
                     Number(id),
-                    data
-                );
+                        {
+                            ...data,
+                            images: imageUrl.trim()
+                                ? [
+                                    {
+                                        url: imageUrl.trim(),
+                                        alt: name,
+                                        order: 0,
+                                    },
+                                ]
+                                : [],
+                        }
+                    );
             } else {
                 await createAdminProduct({
-                    ...data,
-                    images: [],
-                });
+                ...data,
+                images: imageUrl.trim()
+                    ? [
+                        {
+                            url: imageUrl.trim(),
+                            alt: name,
+                            order: 0,
+                        },
+                    ]
+                    : [],
+            });console.log("IMAGEN:", imageUrl),
+                console.log("DATOS ENVIADOS:", data)
             }
 
             navigate("/admin/productos");
@@ -364,6 +391,26 @@ function AdminProductForm() {
                                 )}
                             </select>
                         </div>
+                    </div>
+
+                    <div className="admin-product-form__field">
+                        <label htmlFor="imageUrl">
+                            Imagen del producto
+                        </label>
+
+                        <input
+                            id="imageUrl"
+                            type="text"
+                            value={imageUrl}
+                            onChange={(event) =>
+                                setImageUrl(event.target.value)
+                            }
+                            placeholder="/assets/images/products/tote-01.webp"
+                        />
+
+                        <small>
+                            Ingresá la ruta de la imagen.
+                        </small>
                     </div>
 
                     <div className="admin-product-form__options">

@@ -152,33 +152,6 @@ export interface AdminFabric {
     slug: string;
 }
 
-export async function getAdminCategories(): Promise<
-    AdminCategory[]
-> {
-    const token =
-        localStorage.getItem("adminToken");
-
-    const response = await fetch(
-        `${API_URL}/categories`,
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-    );
-
-    const result = await response.json();
-
-    if (!response.ok) {
-        throw new Error(
-            result.message ||
-                "No se pudieron cargar las categorías"
-        );
-    }
-
-    return result;
-}
-
 export async function getAdminFabrics(): Promise<
     AdminFabric[]
 > {
@@ -292,6 +265,11 @@ export async function updateAdminProduct(
         embroidery: boolean;
         categoryId: number;
         fabricId: number;
+        images: {
+            url: string;
+            alt?: string;
+            order: number;
+        }[];
     }
 ) {
     const token =
@@ -315,6 +293,137 @@ export async function updateAdminProduct(
         throw new Error(
             result.message ||
                 "No se pudo actualizar el producto"
+        );
+    }
+
+    return result;
+}
+
+export interface AdminCategory {
+    id: number;
+    name: string;
+    slug: string;
+    image: string | null;
+    description: string | null;
+}
+
+export async function getAdminCategories(): Promise<
+    AdminCategory[]
+> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/categories`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudieron cargar las categorías"
+        );
+    }
+
+    return result;
+}
+
+export async function createAdminCategory(data: {
+    name: string;
+    slug: string;
+    image?: string;
+    description?: string;
+}) {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/categories`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo crear la categoría"
+        );
+    }
+
+    return result;
+}
+
+export async function getAdminCategory(
+    id: number
+): Promise<AdminCategory> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/categories/${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo cargar la categoría"
+        );
+    }
+
+    return result;
+}
+
+export async function updateAdminCategory(
+    id: number,
+    data: {
+        name: string;
+        slug: string;
+        image?: string;
+        description?: string;
+    }
+) {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/categories/${id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo actualizar la categoría"
         );
     }
 

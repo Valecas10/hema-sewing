@@ -142,3 +142,8 @@
 
     border-left: 3px solid var(--color-primary);
 }
+
+.admin-product-form__field small {
+    font-size: 12px;
+    opacity: 0.6;
+}

@@ -10,6 +10,14 @@ import {
     getCategoriesAdmin,
     updateProductAdmin,
     getProductAdmin,
+    deleteProductAdmin,
+} from "../controllers/adminController";
+
+import {
+    getCategoryAdmin,
+    createCategoryAdmin,
+    updateCategoryAdmin,
+    deleteCategoryAdmin,
 } from "../controllers/adminController";
 
 import {
@@ -69,6 +77,36 @@ router.get(
     "/products/:id",
     authenticateAdmin,
     getProductAdmin
+);
+
+router.delete(
+    "/products/:id",
+    authenticateAdmin,
+    deleteProductAdmin
+);
+
+router.get(
+    "/categories/:id",
+    authenticateAdmin,
+    getCategoryAdmin
+);
+
+router.post(
+    "/categories",
+    authenticateAdmin,
+    createCategoryAdmin
+);
+
+router.put(
+    "/categories/:id",
+    authenticateAdmin,
+    updateCategoryAdmin
+);
+
+router.delete(
+    "/categories/:id",
+    authenticateAdmin,
+    deleteCategoryAdmin
 );
 
 export default router;

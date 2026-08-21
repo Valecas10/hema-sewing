@@ -10,12 +10,20 @@ import {
 
 import {
     getAdminProducts,
-    getAdminCategories,
     getAdminFabrics,
     createAdminProduct,
     updateAdminProduct,
     getAdminProduct,
+    deleteAdminProduct,
 } from "../services/adminProductService";
+
+import {
+    getAdminCategories,
+    getAdminCategory,
+    createAdminCategory,
+    updateAdminCategory,
+    deleteAdminCategory,
+} from "../services/adminCategoryService";
 
 import {
     getAdminDashboard,
@@ -175,28 +183,6 @@ export async function createProductAdmin(
     }
 }
 
-export async function getCategoriesAdmin(
-    _req: AuthRequest,
-    res: Response
-) {
-    try {
-        const categories =
-            await getAdminCategories();
-
-        return res.json(categories);
-    } catch (error) {
-        console.error(
-            "Error al obtener categorías:",
-            error
-        );
-
-        return res.status(500).json({
-            message:
-                "No se pudieron obtener las categorías",
-        });
-    }
-}
-
 export async function getFabricsAdmin(
     _req: AuthRequest,
     res: Response
@@ -245,6 +231,7 @@ export async function updateProductAdmin(
             embroidery,
             categoryId,
             fabricId,
+            images,
         } = req.body;
 
         if (
@@ -273,6 +260,9 @@ export async function updateProductAdmin(
                 embroidery: Boolean(embroidery),
                 categoryId: Number(categoryId),
                 fabricId: Number(fabricId),
+                images: Array.isArray(images)
+                    ? images
+                    : [],
             });
 
         return res.json(product);
@@ -322,6 +312,199 @@ export async function getProductAdmin(
                 error instanceof Error
                     ? error.message
                     : "No se pudo obtener el producto",
+        });
+    }
+}
+
+export async function deleteProductAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const id = Number(req.params.id);
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message: "ID de producto inválido",
+            });
+        }
+
+        await deleteAdminProduct(id);
+
+        return res.status(204).send();
+    } catch (error) {
+        console.error(
+            "Error al eliminar producto:",
+            error
+        );
+
+        return res.status(400).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo eliminar el producto",
+        });
+    }
+}
+
+export async function getCategoriesAdmin(
+    _req: AuthRequest,
+    res: Response
+) {
+    try {
+        const categories =
+            await getAdminCategories();
+
+        return res.json(categories);
+    } catch (error) {
+        console.error(
+            "Error al obtener categorías:",
+            error
+        );
+
+        return res.status(500).json({
+            message:
+                "No se pudieron obtener las categorías",
+        });
+    }
+}
+
+export async function getCategoryAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const id = Number(req.params.id);
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message:
+                    "ID de categoría inválido",
+            });
+        }
+
+        const category =
+            await getAdminCategory(id);
+
+        return res.json(category);
+    } catch (error) {
+        return res.status(404).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo obtener la categoría",
+        });
+    }
+}
+
+export async function createCategoryAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const {
+            name,
+            slug,
+            image,
+            description,
+        } = req.body;
+
+        if (!name || !slug) {
+            return res.status(400).json({
+                message:
+                    "Nombre y slug son obligatorios",
+            });
+        }
+
+        const category =
+            await createAdminCategory({
+                name,
+                slug,
+                image,
+                description,
+            });
+
+        return res.status(201).json(category);
+    } catch (error) {
+        return res.status(400).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo crear la categoría",
+        });
+    }
+}
+
+export async function updateCategoryAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const id = Number(req.params.id);
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message:
+                    "ID de categoría inválido",
+            });
+        }
+
+        const {
+            name,
+            slug,
+            image,
+            description,
+        } = req.body;
+
+        if (!name || !slug) {
+            return res.status(400).json({
+                message:
+                    "Nombre y slug son obligatorios",
+            });
+        }
+
+        const category =
+            await updateAdminCategory(id, {
+                name,
+                slug,
+                image,
+                description,
+            });
+
+        return res.json(category);
+    } catch (error) {
+        return res.status(400).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo actualizar la categoría",
+        });
+    }
+}
+
+export async function deleteCategoryAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const id = Number(req.params.id);
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message:
+                    "ID de categoría inválido",
+            });
+        }
+
+        await deleteAdminCategory(id);
+
+        return res.status(204).send();
+    } catch (error) {
+        return res.status(400).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo eliminar la categoría",
         });
     }
 }

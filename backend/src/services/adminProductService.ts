@@ -163,6 +163,11 @@ interface UpdateAdminProductInput {
     embroidery: boolean;
     categoryId: number;
     fabricId: number;
+    images: {
+            url: string;
+            alt?: string;
+            order: number;
+        }[];
 }
 
 export async function updateAdminProduct(
@@ -251,6 +256,14 @@ export async function updateAdminProduct(
             embroidery: data.embroidery,
             categoryId: data.categoryId,
             fabricId: data.fabricId,
+            images: {
+                deleteMany: {},
+                create: data.images.map((image) => ({
+                    url: image.url,
+                    alt: image.alt ?? "",
+                    order: image.order,
+                })),
+            },
         },
 
         include: {
@@ -291,4 +304,28 @@ export async function getAdminProduct(
     }
 
     return product;
+}
+
+export async function deleteAdminProduct(id: number) {
+    const product = await prisma.product.findUnique({
+        where: {
+            id,
+        },
+    });
+
+    if (!product) {
+        throw new Error("El producto no existe");
+    }
+
+    await prisma.productImage.deleteMany({
+        where: {
+            productId: id,
+        },
+    });
+
+    return prisma.product.delete({
+        where: {
+            id,
+        },
+    });
 }

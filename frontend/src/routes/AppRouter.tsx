@@ -16,6 +16,8 @@ import AdminDashboard from "../pages/Admin/AdminDashboard/AdminDashboard";
 import ProtectedAdminRoute from "../components/admin/ProtectedAdminRoute/ProtectedAdminRoute";
 import AdminProducts from "../pages/Admin/AdminProducts/AdminProducts";
 import AdminProductForm from "../pages/Admin/AdminProductForm/AdminProductForm";
+import AdminCategories from "../pages/Admin/AdminCategories/AdminCategories";
+import AdminCategoryForm from "../pages/Admin/AdminCategoryForm/AdminCategoryForm";
 
 export default function AppRouter() {
     return (
@@ -92,6 +94,21 @@ export default function AppRouter() {
                         <Route
                             path="/admin/productos/:id/editar"
                             element={<AdminProductForm />}
+                        />
+
+                        <Route
+                            path="/admin/categorias"
+                            element={<AdminCategories />}
+                        />
+
+                        <Route
+                            path="/admin/categorias/nueva"
+                            element={<AdminCategoryForm />}
+                        />
+
+                        <Route
+                            path="/admin/categorias/:id/editar"
+                            element={<AdminCategoryForm />}
                         />
                     </Route>
 
