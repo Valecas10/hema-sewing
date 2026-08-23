@@ -18,6 +18,10 @@ import AdminProducts from "../pages/Admin/AdminProducts/AdminProducts";
 import AdminProductForm from "../pages/Admin/AdminProductForm/AdminProductForm";
 import AdminCategories from "../pages/Admin/AdminCategories/AdminCategories";
 import AdminCategoryForm from "../pages/Admin/AdminCategoryForm/AdminCategoryForm";
+import AdminFabrics from "../pages/Admin/AdminFabric/AdminFabric";
+import AdminFabricForm from "../pages/Admin/AdminFabricForm/AdminFabricForm";
+import AdminOrders from "../pages/Admin/AdminOrders/AdminOrders";
+import AdminOrderDetail from "../pages/Admin/AdminOrderDetail/AdminOrderDetail";
 
 export default function AppRouter() {
     return (
@@ -109,6 +113,31 @@ export default function AppRouter() {
                         <Route
                             path="/admin/categorias/:id/editar"
                             element={<AdminCategoryForm />}
+                        />
+
+                        <Route
+                            path="/admin/telas"
+                            element={<AdminFabrics />}
+                        />
+                        
+                        <Route
+                            path="/admin/telas/nueva"
+                            element={<AdminFabricForm />}
+                        />
+
+                        <Route
+                            path="/admin/telas/:id/editar"
+                            element={<AdminFabricForm />}
+                        />
+
+                        <Route
+                            path="/admin/pedidos"
+                            element={<AdminOrders />}
+                        />
+
+                        <Route
+                            path="/admin/pedidos/:id"
+                            element={<AdminOrderDetail />}
                         />
                     </Route>
 

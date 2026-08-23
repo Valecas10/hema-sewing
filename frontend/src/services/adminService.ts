@@ -152,33 +152,6 @@ export interface AdminFabric {
     slug: string;
 }
 
-export async function getAdminFabrics(): Promise<
-    AdminFabric[]
-> {
-    const token =
-        localStorage.getItem("adminToken");
-
-    const response = await fetch(
-        `${API_URL}/fabrics`,
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-    );
-
-    const result = await response.json();
-
-    if (!response.ok) {
-        throw new Error(
-            result.message ||
-                "No se pudieron cargar las telas"
-        );
-    }
-
-    return result;
-}
-
 export interface CreateAdminProductData {
     name: string;
     slug: string;
@@ -424,6 +397,271 @@ export async function updateAdminCategory(
         throw new Error(
             result.message ||
                 "No se pudo actualizar la categoría"
+        );
+    }
+
+    return result;
+}
+
+export interface AdminFabric {
+    id: number;
+    name: string;
+    slug: string;
+}
+
+export async function getAdminFabrics(): Promise<
+    AdminFabric[]
+> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/fabrics`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudieron cargar las telas"
+        );
+    }
+
+    return result;
+}
+
+export async function getAdminFabric(
+    id: number
+): Promise<AdminFabric> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/fabrics/${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo cargar la tela"
+        );
+    }
+
+    return result;
+}
+
+export async function createAdminFabric(data: {
+    name: string;
+    slug: string;
+}) {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/fabrics`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo crear la tela"
+        );
+    }
+
+    return result;
+}
+
+export async function updateAdminFabric(
+    id: number,
+    data: {
+        name: string;
+        slug: string;
+    }
+) {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/fabrics/${id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo actualizar la tela"
+        );
+    }
+
+    return result;
+}
+
+export async function deleteAdminFabric(
+    id: number
+) {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/fabrics/${id}`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    if (!response.ok) {
+        const result = await response.json();
+
+        throw new Error(
+            result.message ||
+                "No se pudo eliminar la tela"
+        );
+    }
+}
+
+export interface AdminOrderItem {
+    id: number;
+    quantity: number;
+    price: number;
+    product: {
+        id: number;
+        name: string;
+        slug: string;
+    };
+}
+
+export interface AdminOrder {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    deliveryMethod: string;
+    address: string | null;
+    city: string | null;
+    postalCode: string | null;
+    total: number;
+    status: string;
+    createdAt: string;
+    items: AdminOrderItem[];
+}
+
+export async function getAdminOrders(): Promise<
+    AdminOrder[]
+> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/orders`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudieron cargar los pedidos"
+        );
+    }
+
+    return result;
+}
+
+export async function getAdminOrder(
+    id: number
+): Promise<AdminOrder> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/orders/${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo cargar el pedido"
+        );
+    }
+
+    return result;
+}
+
+export async function updateAdminOrderStatus(
+    id: number,
+    status: string
+): Promise<AdminOrder> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/orders/${id}/status`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                status,
+            }),
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo actualizar el estado"
         );
     }
 

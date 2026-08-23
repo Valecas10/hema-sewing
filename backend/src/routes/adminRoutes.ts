@@ -6,18 +6,22 @@ import {
     getProductsAdmin,
     createProductAdmin,
     getDashboard,
-    getFabricsAdmin,
     getCategoriesAdmin,
     updateProductAdmin,
     getProductAdmin,
     deleteProductAdmin,
-} from "../controllers/adminController";
-
-import {
+    getFabricAdmin,
+    createFabricAdmin,
+    updateFabricAdmin,
+    deleteFabricAdmin,
     getCategoryAdmin,
     createCategoryAdmin,
     updateCategoryAdmin,
     deleteCategoryAdmin,
+    getFabricsAdmin,
+    getOrdersAdmin,
+    getOrderAdmin,
+    updateOrderStatusAdmin,
 } from "../controllers/adminController";
 
 import {
@@ -63,8 +67,9 @@ router.get(
 
 router.get(
     "/fabrics",
-    authenticateAdmin,
-    getFabricsAdmin
+    getFabricsAdmin,
+    getFabricAdmin,
+    createFabricAdmin,
 );
 
 router.put(
@@ -107,6 +112,48 @@ router.delete(
     "/categories/:id",
     authenticateAdmin,
     deleteCategoryAdmin
+);
+
+router.get(
+    "/fabrics/:id",
+    authenticateAdmin,
+    getFabricAdmin
+);
+
+router.post(
+    "/fabrics",
+    authenticateAdmin,
+    createFabricAdmin
+);
+
+router.put(
+    "/fabrics/:id",
+    authenticateAdmin,
+    updateFabricAdmin
+);
+
+router.delete(
+    "/fabrics/:id",
+    authenticateAdmin,
+    deleteFabricAdmin
+);
+
+router.get(
+    "/orders",
+    authenticateAdmin,
+    getOrdersAdmin
+);
+
+router.get(
+    "/orders/:id",
+    authenticateAdmin,
+    getOrderAdmin
+);
+
+router.put(
+    "/orders/:id/status",
+    authenticateAdmin,
+    updateOrderStatusAdmin
 );
 
 export default router;

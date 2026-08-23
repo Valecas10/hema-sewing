@@ -58,7 +58,10 @@ export async function createOrder(
                 );
             }
 
-            if (product.stock < item.quantity) {
+            if (
+                product.stock !== -1 &&
+                product.stock < item.quantity
+            ) {
                 throw new Error(
                     `Stock insuficiente para ${product.name}`
                 );
@@ -113,16 +116,29 @@ export async function createOrder(
             });
 
         for (const item of data.items) {
-            await tx.product.update({
-                where: {
-                    id: item.productId,
-                },
-                data: {
-                    stock: {
-                        decrement: item.quantity,
+            const product =
+                await tx.product.findUnique({
+                    where: {
+                        id: item.productId,
                     },
-                },
-            });
+                });
+
+            if (!product) {
+                continue;
+            }
+
+            if (product.stock !== -1) {
+                await tx.product.update({
+                    where: {
+                        id: item.productId,
+                    },
+                    data: {
+                        stock: {
+                            decrement: item.quantity,
+                        },
+                    },
+                });
+            }
         }
 
         return order;

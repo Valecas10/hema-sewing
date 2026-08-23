@@ -10,7 +10,6 @@ import {
 
 import {
     getAdminProducts,
-    getAdminFabrics,
     createAdminProduct,
     updateAdminProduct,
     getAdminProduct,
@@ -24,6 +23,20 @@ import {
     updateAdminCategory,
     deleteAdminCategory,
 } from "../services/adminCategoryService";
+
+import {
+    getAdminFabrics,
+    getAdminFabric,
+    createAdminFabric,
+    updateAdminFabric,
+    deleteAdminFabric,
+} from "../services/adminFabricService";
+
+import {
+    getAdminOrders,
+    getAdminOrder,
+    updateAdminOrderStatus,
+} from "../services/adminOrderService";
 
 import {
     getAdminDashboard,
@@ -179,28 +192,6 @@ export async function createProductAdmin(
                 error instanceof Error
                     ? error.message
                     : "No se pudo crear el producto",
-        });
-    }
-}
-
-export async function getFabricsAdmin(
-    _req: AuthRequest,
-    res: Response
-) {
-    try {
-        const fabrics =
-            await getAdminFabrics();
-
-        return res.json(fabrics);
-    } catch (error) {
-        console.error(
-            "Error al obtener telas:",
-            error
-        );
-
-        return res.status(500).json({
-            message:
-                "No se pudieron obtener las telas",
         });
     }
 }
@@ -505,6 +496,250 @@ export async function deleteCategoryAdmin(
                 error instanceof Error
                     ? error.message
                     : "No se pudo eliminar la categoría",
+        });
+    }
+}
+
+export async function getFabricsAdmin(
+    _req: AuthRequest,
+    res: Response
+) {
+    try {
+        const fabrics =
+            await getAdminFabrics();
+
+        return res.json(fabrics);
+    } catch (error) {
+        console.error(
+            "Error al obtener telas:",
+            error
+        );
+
+        return res.status(500).json({
+            message:
+                "No se pudieron obtener las telas",
+        });
+    }
+}
+
+export async function getFabricAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const id = Number(req.params.id);
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message:
+                    "ID de tela inválido",
+            });
+        }
+
+        const fabric =
+            await getAdminFabric(id);
+
+        return res.json(fabric);
+    } catch (error) {
+        return res.status(404).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo obtener la tela",
+        });
+    }
+}
+
+export async function createFabricAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const { name, slug } =
+            req.body;
+
+        if (!name || !slug) {
+            return res.status(400).json({
+                message:
+                    "Nombre y slug son obligatorios",
+            });
+        }
+
+        const fabric =
+            await createAdminFabric({
+                name,
+                slug,
+            });
+
+        return res.status(201).json(fabric);
+    } catch (error) {
+        return res.status(400).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo crear la tela",
+        });
+    }
+}
+
+export async function updateFabricAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const id = Number(req.params.id);
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message:
+                    "ID de tela inválido",
+            });
+        }
+
+        const { name, slug } =
+            req.body;
+
+        if (!name || !slug) {
+            return res.status(400).json({
+                message:
+                    "Nombre y slug son obligatorios",
+            });
+        }
+
+        const fabric =
+            await updateAdminFabric(id, {
+                name,
+                slug,
+            });
+
+        return res.json(fabric);
+    } catch (error) {
+        return res.status(400).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo actualizar la tela",
+        });
+    }
+}
+
+export async function deleteFabricAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const id = Number(req.params.id);
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message:
+                    "ID de tela inválido",
+            });
+        }
+
+        await deleteAdminFabric(id);
+
+        return res.status(204).send();
+    } catch (error) {
+        return res.status(400).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo eliminar la tela",
+        });
+    }
+}
+
+export async function getOrdersAdmin(
+    _req: AuthRequest,
+    res: Response
+) {
+    try {
+        const orders =
+            await getAdminOrders();
+
+        return res.json(orders);
+    } catch (error) {
+        console.error(
+            "Error al obtener pedidos:",
+            error
+        );
+
+        return res.status(500).json({
+            message:
+                "No se pudieron obtener los pedidos",
+        });
+    }
+}
+
+export async function getOrderAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const id = Number(
+            req.params.id
+        );
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message:
+                    "ID de pedido inválido",
+            });
+        }
+
+        const order =
+            await getAdminOrder(id);
+
+        return res.json(order);
+    } catch (error) {
+        return res.status(404).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo obtener el pedido",
+        });
+    }
+}
+
+export async function updateOrderStatusAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const id = Number(
+            req.params.id
+        );
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message:
+                    "ID de pedido inválido",
+            });
+        }
+
+        const { status } = req.body;
+
+        if (!status) {
+            return res.status(400).json({
+                message:
+                    "El estado es obligatorio",
+            });
+        }
+
+        const order =
+            await updateAdminOrderStatus(
+                id,
+                status
+            );
+
+        return res.json(order);
+    } catch (error) {
+        return res.status(400).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo actualizar el estado",
         });
     }
 }

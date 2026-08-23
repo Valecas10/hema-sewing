@@ -57,6 +57,7 @@ CREATE TABLE "Order" (
     "city" TEXT,
     "postalCode" TEXT,
     "total" INTEGER NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'PENDIENTE',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("id")

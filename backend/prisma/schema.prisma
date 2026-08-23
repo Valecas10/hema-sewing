@@ -73,6 +73,7 @@ model Order {
     postalCode     String?
 
     total          Int
+    status         String      @default("PENDIENTE")
     createdAt      DateTime    @default(now())
 
     items          OrderItem[]

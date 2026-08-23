@@ -1,0 +1,110 @@
+.admin-fabrics {
+    min-height: 100vh;
+}
+
+.admin-fabrics__main {
+    min-height: 100vh;
+    margin-left: 240px;
+    padding: 40px;
+}
+
+.admin-fabrics__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+
+    padding-bottom: 28px;
+
+    border-bottom: 1px solid var(--color-border);
+}
+
+.admin-fabrics__eyebrow {
+    display: block;
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    opacity: 0.6;
+}
+
+.admin-fabrics__header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.admin-fabrics__add {
+    padding: 11px 16px;
+
+    border: 0;
+    border-radius: 6px;
+
+    background-color: var(--color-primary);
+    color: var(--color-background);
+
+    font: inherit;
+    cursor: pointer;
+}
+
+.admin-fabrics__table-wrapper {
+    margin-top: 32px;
+
+    overflow-x: auto;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+}
+
+.admin-fabrics__table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.admin-fabrics__table th,
+.admin-fabrics__table td {
+    padding: 16px;
+
+    border-bottom: 1px solid var(--color-border);
+
+    text-align: left;
+    font-size: 14px;
+}
+
+.admin-fabrics__table th {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    opacity: 0.65;
+}
+
+.admin-fabrics__table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.admin-fabrics__actions {
+    display: flex;
+    gap: 8px;
+}
+
+.admin-fabrics__actions button {
+    padding: 7px 10px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+
+    background: transparent;
+
+    font: inherit;
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.admin-fabrics__actions button:hover {
+    background-color: var(--color-secondary);
+}
