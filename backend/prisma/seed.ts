@@ -20,7 +20,32 @@ const prisma = new PrismaClient({
 });
 
 async function main() {
+
+    await prisma.contactInfo.upsert({
+        where: {
+            id: 1,
+        },
+        update: {},
+        create: {
+            id: 1,
+            email: "contacto@hema-sewing.com",
+            phone: "",
+            instagram: "",
+            facebook: "",
+            tiktok: "",
+            whatsapp: "",
+
+            instagramEnabled: true,
+            facebookEnabled: true,
+            tiktokEnabled: true,
+            whatsappEnabled: true,
+        },
+    });
+
+    console.log("✅ Información de contacto creada");
+        
     console.log("🌱 Iniciando seed...");
+    
 
     await prisma.productImage.deleteMany();
     await prisma.product.deleteMany();
