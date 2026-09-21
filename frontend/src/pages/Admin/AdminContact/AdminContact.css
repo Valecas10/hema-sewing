@@ -1,0 +1,183 @@
+.admin-contact {
+    min-height: 100vh;
+}
+
+.admin-contact__main {
+    min-height: 100vh;
+    margin-left: 240px;
+    padding: 40px;
+}
+
+.admin-contact__header {
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.admin-contact__header span {
+    display: block;
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    opacity: 0.6;
+}
+
+.admin-contact__header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.admin-contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    max-width: 1000px;
+
+    margin-top: 32px;
+}
+
+.admin-contact__card {
+    padding: 24px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+}
+
+.admin-contact__card h2 {
+    margin: 0 0 20px;
+
+    font-size: 18px;
+}
+
+.admin-contact__card-header {
+    margin-bottom: 24px;
+}
+
+.admin-contact__card-header h2 {
+    margin-bottom: 6px;
+}
+
+.admin-contact__card-header p {
+    margin: 0;
+
+    font-size: 13px;
+
+    opacity: 0.6;
+}
+
+.admin-contact__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    margin-bottom: 20px;
+}
+
+.admin-contact__field:last-child {
+    margin-bottom: 0;
+}
+
+.admin-contact__field label {
+    font-size: 13px;
+}
+
+.admin-contact__field input,
+.admin-contact__social input {
+    min-width: 0;
+
+    padding: 11px 13px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+
+    background: transparent;
+
+    font: inherit;
+}
+
+.admin-contact__field input:focus,
+.admin-contact__social input:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+}
+
+.admin-contact__social {
+    display: grid;
+    grid-template-columns: 150px 1fr auto;
+    align-items: center;
+    gap: 20px;
+
+    padding: 18px 0;
+
+    border-top: 1px solid var(--color-border);
+}
+
+.admin-contact__social-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.admin-contact__social-info strong {
+    font-size: 14px;
+}
+
+.admin-contact__social-info span {
+    font-size: 11px;
+    opacity: 0.55;
+}
+
+.admin-contact__switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 12px;
+
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.admin-contact__switch input {
+    accent-color: var(--color-primary);
+}
+
+.admin-contact__actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.admin-contact__actions button {
+    padding: 11px 20px;
+
+    border: 0;
+    border-radius: 6px;
+
+    background: var(--color-primary);
+    color: var(--color-background);
+
+    font: inherit;
+
+    cursor: pointer;
+}
+
+.admin-contact__actions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.admin-contact__message,
+.admin-contact__error {
+    max-width: 1000px;
+
+    margin-top: 20px;
+    padding: 12px 16px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+
+    font-size: 13px;
+}

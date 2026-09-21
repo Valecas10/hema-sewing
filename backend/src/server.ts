@@ -5,6 +5,7 @@ import categoryRoutes from "./routes/categoryRoutes";
 import fabricRoutes from "./routes/fabricRoutes";
 import orderRoutes from "./routes/orderRoutes";
 import adminRoutes from "./routes/adminRoutes";
+import contactRoutes from "./routes/contactRoutes";
 
 const app = express();
 
@@ -43,6 +44,11 @@ app.use(
 app.use(
     "/api/admin",
     adminRoutes
+);
+
+app.use(
+    "/api/contact",
+    contactRoutes
 );
 
 app.listen(PORT, () => {

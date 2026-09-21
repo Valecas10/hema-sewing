@@ -667,3 +667,77 @@ export async function updateAdminOrderStatus(
 
     return result;
 }
+
+export interface AdminContactInfo {
+    id: number;
+    email: string;
+    phone: string;
+
+    instagram: string | null;
+    facebook: string | null;
+    tiktok: string | null;
+    whatsapp: string | null;
+
+    instagramEnabled: boolean;
+    facebookEnabled: boolean;
+    tiktokEnabled: boolean;
+    whatsappEnabled: boolean;
+
+    updatedAt: string;
+}
+
+export async function getAdminContactInfo(): Promise<AdminContactInfo> {
+    const token = localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/contact`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo cargar la información de contacto"
+        );
+    }
+
+    return result;
+}
+
+export async function updateAdminContactInfo(
+    data: Omit<
+        AdminContactInfo,
+        "id" | "updatedAt"
+    >
+): Promise<AdminContactInfo> {
+    const token = localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/contact`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo actualizar la información de contacto"
+        );
+    }
+
+    return result;
+}

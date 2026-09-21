@@ -22,6 +22,8 @@ import AdminFabrics from "../pages/Admin/AdminFabric/AdminFabric";
 import AdminFabricForm from "../pages/Admin/AdminFabricForm/AdminFabricForm";
 import AdminOrders from "../pages/Admin/AdminOrders/AdminOrders";
 import AdminOrderDetail from "../pages/Admin/AdminOrderDetail/AdminOrderDetail";
+import AdminContact from "../pages/Admin/AdminContact/AdminContact";
+import Contact from "../pages/Contact/Contact";
 
 export default function AppRouter() {
     return (
@@ -69,6 +71,11 @@ export default function AppRouter() {
                     <Route
                         path="/tracking"
                         element={<Tracking />}
+                    />
+
+                    <Route
+                        path="/contacto"
+                        element={<Contact />}
                     />
 
                 </Route>
@@ -138,6 +145,11 @@ export default function AppRouter() {
                         <Route
                             path="/admin/pedidos/:id"
                             element={<AdminOrderDetail />}
+                        />
+
+                        <Route
+                            path="/admin/contacto"
+                            element={<AdminContact />}
                         />
                     </Route>
 

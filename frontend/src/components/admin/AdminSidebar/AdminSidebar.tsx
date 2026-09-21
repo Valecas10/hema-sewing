@@ -51,6 +51,13 @@ function AdminSidebar() {
                 >
                     Pedidos
                 </NavLink>
+
+                <NavLink
+                    to="/admin/contacto"
+                    className="admin-sidebar__link"
+                >
+                    Contacto
+                </NavLink>
             </nav>
 
             <div className="admin-sidebar__footer">

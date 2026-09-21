@@ -42,6 +42,15 @@ import {
     getAdminDashboard,
 } from "../services/adminDashboardService";
 
+import {
+    getAdminContactInfo,
+    updateAdminContactInfo,
+} from "../services/adminContactService";
+
+import {
+    getContactInfo,
+} from "../services/contactService";
+
 export async function postAdminLogin(
     req: Request,
     res: Response
@@ -740,6 +749,95 @@ export async function updateOrderStatusAdmin(
                 error instanceof Error
                     ? error.message
                     : "No se pudo actualizar el estado",
+        });
+    }
+}
+
+export async function getContactAdmin(
+    _req: AuthRequest,
+    res: Response
+) {
+    try {
+        const contact =
+            await getAdminContactInfo();
+
+        return res.json(contact);
+    } catch (error) {
+        console.error(
+            "Error al obtener información de contacto:",
+            error
+        );
+
+        return res.status(500).json({
+            message:
+                "No se pudo obtener la información de contacto",
+        });
+    }
+}
+
+export async function updateContactAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const {
+            email,
+            phone,
+            instagram,
+            facebook,
+            tiktok,
+            whatsapp,
+            instagramEnabled,
+            facebookEnabled,
+            tiktokEnabled,
+            whatsappEnabled,
+        } = req.body;
+
+        if (!email || !phone) {
+            return res.status(400).json({
+                message:
+                    "Email y teléfono son obligatorios",
+            });
+        }
+
+        const contact =
+            await updateAdminContactInfo({
+                email,
+                phone,
+                instagram,
+                facebook,
+                tiktok,
+                whatsapp,
+                instagramEnabled:
+                    Boolean(
+                        instagramEnabled
+                    ),
+                facebookEnabled:
+                    Boolean(
+                        facebookEnabled
+                    ),
+                tiktokEnabled:
+                    Boolean(
+                        tiktokEnabled
+                    ),
+                whatsappEnabled:
+                    Boolean(
+                        whatsappEnabled
+                    ),
+            });
+
+        return res.json(contact);
+    } catch (error) {
+        console.error(
+            "Error al actualizar información de contacto:",
+            error
+        );
+
+        return res.status(400).json({
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo actualizar la información de contacto",
         });
     }
 }

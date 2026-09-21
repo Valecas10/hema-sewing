@@ -22,6 +22,8 @@ import {
     getOrdersAdmin,
     getOrderAdmin,
     updateOrderStatusAdmin,
+    getContactAdmin,
+    updateContactAdmin
 } from "../controllers/adminController";
 
 import {
@@ -154,6 +156,18 @@ router.put(
     "/orders/:id/status",
     authenticateAdmin,
     updateOrderStatusAdmin
+);
+
+router.get(
+    "/contact",
+    authenticateAdmin,
+    getContactAdmin
+);
+
+router.put(
+    "/contact",
+    authenticateAdmin,
+    updateContactAdmin
 );
 
 export default router;
