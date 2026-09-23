@@ -58,6 +58,12 @@ function AdminSidebar() {
                 >
                     Contacto
                 </NavLink>
+                <NavLink
+                    to="/admin/galeria"
+                    className="admin-sidebar__link"
+                >
+                    Galería
+                </NavLink>
             </nav>
 
             <div className="admin-sidebar__footer">

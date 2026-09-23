@@ -48,8 +48,11 @@ import {
 } from "../services/adminContactService";
 
 import {
-    getContactInfo,
-} from "../services/contactService";
+    getAdminGallery,
+    createGalleryImage,
+    updateGalleryImage,
+    deleteGalleryImage,
+} from "../services/adminGalleryService";
 
 export async function postAdminLogin(
     req: Request,
@@ -838,6 +841,151 @@ export async function updateContactAdmin(
                 error instanceof Error
                     ? error.message
                     : "No se pudo actualizar la información de contacto",
+        });
+    }
+}
+
+export async function getGalleryAdmin(
+    _req: AuthRequest,
+    res: Response
+) {
+    try {
+        const gallery =
+            await getAdminGallery();
+
+        return res.json(gallery);
+    } catch (error) {
+        console.error(
+            "Error al obtener galería:",
+            error
+        );
+
+        return res.status(500).json({
+            message:
+                "No se pudo obtener la galería",
+        });
+    }
+}
+
+export async function uploadGalleryImageAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        if (!req.file) {
+            return res.status(400).json({
+                message:
+                    "No se seleccionó ninguna imagen",
+            });
+        }
+
+        const image =
+            await createGalleryImage({
+                url: `/uploads/gallery/${req.file.filename}`,
+                alt:
+                    req.body.alt ??
+                    req.file.originalname,
+                order:
+                    Number(req.body.order) || 0,
+                active: true,
+            });
+
+        return res.status(201).json(image);
+    } catch (error) {
+        console.error(
+            "Error al subir imagen:",
+            error
+        );
+
+        return res.status(500).json({
+            message:
+                "No se pudo subir la imagen",
+        });
+    }
+}
+
+export async function updateGalleryImageAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const id =
+            Number(req.params.id);
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message:
+                    "ID de imagen inválido",
+            });
+        }
+
+        const image =
+            await updateGalleryImage(
+                id,
+                {
+                    alt:
+                        req.body.alt,
+                    order:
+                        req.body.order !==
+                        undefined
+                            ? Number(
+                                  req.body.order
+                              )
+                            : undefined,
+                    active:
+                        req.body.active !==
+                        undefined
+                            ? Boolean(
+                                  req.body.active
+                              )
+                            : undefined,
+                }
+            );
+
+        return res.json(image);
+    } catch (error) {
+        console.error(
+            "Error al actualizar imagen:",
+            error
+        );
+
+        return res.status(500).json({
+            message:
+                "No se pudo actualizar la imagen",
+        });
+    }
+}
+
+export async function deleteGalleryImageAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        const id =
+            Number(req.params.id);
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message:
+                    "ID de imagen inválido",
+            });
+        }
+
+        await deleteGalleryImage(id);
+
+        return res.json({
+            message:
+                "Imagen eliminada correctamente",
+        });
+    } catch (error) {
+        console.error(
+            "Error al eliminar imagen:",
+            error
+        );
+
+        return res.status(500).json({
+            message:
+                "No se pudo eliminar la imagen",
         });
     }
 }

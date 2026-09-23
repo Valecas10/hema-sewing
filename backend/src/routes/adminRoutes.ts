@@ -23,12 +23,20 @@ import {
     getOrderAdmin,
     updateOrderStatusAdmin,
     getContactAdmin,
-    updateContactAdmin
+    updateContactAdmin,
+    getGalleryAdmin,
+    uploadGalleryImageAdmin,
+    updateGalleryImageAdmin,
+    deleteGalleryImageAdmin
 } from "../controllers/adminController";
 
 import {
     authenticateAdmin,
 } from "../middleware/authMiddleware";
+
+import {
+    uploadGalleryImage,
+} from "../middleware/uploadMiddleware";
 
 const router = Router();
 
@@ -168,6 +176,31 @@ router.put(
     "/contact",
     authenticateAdmin,
     updateContactAdmin
+);
+
+router.get(
+    "/gallery",
+    authenticateAdmin,
+    getGalleryAdmin
+);
+
+router.post(
+    "/gallery/upload",
+    authenticateAdmin,
+    uploadGalleryImage.single("image"),
+    uploadGalleryImageAdmin
+);
+
+router.put(
+    "/gallery/:id",
+    authenticateAdmin,
+    updateGalleryImageAdmin
+);
+
+router.delete(
+    "/gallery/:id",
+    authenticateAdmin,
+    deleteGalleryImageAdmin
 );
 
 export default router;

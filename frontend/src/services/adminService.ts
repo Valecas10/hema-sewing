@@ -741,3 +741,154 @@ export async function updateAdminContactInfo(
 
     return result;
 }
+
+export interface AdminGalleryImage {
+    id: number;
+    url: string;
+    alt: string;
+    order: number;
+    active: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export async function getAdminGallery(): Promise<
+    AdminGalleryImage[]
+> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/gallery`,
+        {
+            headers: {
+                Authorization:
+                    `Bearer ${token}`,
+            },
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo cargar la galería"
+        );
+    }
+
+    return result;
+}
+
+export async function uploadGalleryImage(
+    file: File,
+    alt?: string,
+    order?: number
+): Promise<AdminGalleryImage> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const formData = new FormData();
+
+    formData.append(
+        "image",
+        file
+    );
+
+    formData.append(
+        "alt",
+        alt ?? ""
+    );
+
+    formData.append(
+        "order",
+        String(order ?? 0)
+    );
+
+    const response = await fetch(
+        `${API_URL}/admin/gallery/upload`,
+        {
+            method: "POST",
+            headers: {
+                Authorization:
+                    `Bearer ${token}`,
+            },
+            body: formData,
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo subir la imagen"
+        );
+    }
+
+    return result;
+}
+
+export async function updateAdminGalleryImage(
+    id: number,
+    data: {
+        alt?: string;
+        order?: number;
+        active?: boolean;
+    }
+): Promise<AdminGalleryImage> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/gallery/${id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type":
+                    "application/json",
+                Authorization:
+                    `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo actualizar la imagen"
+        );
+    }
+
+    return result;
+}
+
+export async function deleteAdminGalleryImage(
+    id: number
+): Promise<void> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const response = await fetch(
+        `${API_URL}/admin/gallery/${id}`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization:
+                    `Bearer ${token}`,
+            },
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo eliminar la imagen"
+        );
+    }
+}

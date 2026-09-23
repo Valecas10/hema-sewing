@@ -1,0 +1,388 @@
+.admin-gallery {
+    min-height: 100vh;
+}
+
+.admin-gallery__main {
+    min-height: 100vh;
+    margin-left: 240px;
+    padding: 40px;
+}
+
+.admin-gallery__header {
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.admin-gallery__header span {
+    display: block;
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    opacity: 0.6;
+}
+
+.admin-gallery__header h1 {
+    margin: 0 0 8px;
+
+    font-size: 32px;
+}
+
+.admin-gallery__header p {
+    margin: 0;
+
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.admin-gallery__add {
+    max-width: 1000px;
+
+    margin-top: 32px;
+    padding: 24px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+}
+
+.admin-gallery__card-header {
+    margin-bottom: 24px;
+}
+
+.admin-gallery__card-header h2 {
+    margin: 0 0 6px;
+
+    font-size: 18px;
+}
+
+.admin-gallery__card-header p {
+    margin: 0;
+
+    font-size: 13px;
+
+    opacity: 0.6;
+}
+
+.admin-gallery__form {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr auto;
+    align-items: end;
+    gap: 16px;
+}
+
+.admin-gallery__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-gallery__field label {
+    font-size: 13px;
+}
+
+.admin-gallery__field input {
+    width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+
+    background: transparent;
+
+    font: inherit;
+}
+
+.admin-gallery__field input:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+}
+
+.admin-gallery__form > button {
+    padding: 11px 20px;
+
+    border: 0;
+    border-radius: 6px;
+
+    background: var(--color-primary);
+    color: var(--color-background);
+
+    font: inherit;
+
+    cursor: pointer;
+}
+
+.admin-gallery__form > button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.admin-gallery__message,
+.admin-gallery__error {
+    max-width: 1000px;
+
+    margin-top: 20px;
+    padding: 12px 16px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+
+    font-size: 13px;
+}
+
+.admin-gallery__list {
+    max-width: 1000px;
+
+    margin-top: 32px;
+}
+
+.admin-gallery__list-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+.admin-gallery__list-header h2 {
+    margin: 0 0 6px;
+
+    font-size: 20px;
+}
+
+.admin-gallery__list-header p {
+    margin: 0;
+
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+.admin-gallery__list-header > span {
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+.admin-gallery__grid {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.admin-gallery__item {
+    overflow: hidden;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    background: var(--color-background);
+}
+
+.admin-gallery__item.is-inactive {
+    opacity: 0.55;
+}
+
+.admin-gallery__image {
+    position: relative;
+
+    height: 260px;
+
+    background: var(--color-surface);
+}
+
+.admin-gallery__image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.admin-gallery__order {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    background: var(--color-background);
+    color: var(--color-primary);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    box-shadow: var(--shadow-sm);
+}
+
+.admin-gallery__inactive {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+
+    padding: 5px 9px;
+
+    border-radius: 5px;
+
+    background: var(--color-text);
+    color: var(--color-background);
+
+    font-size: 11px;
+}
+
+.admin-gallery__item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding: 16px;
+}
+
+.admin-gallery__item-alt {
+    display: block;
+
+    min-height: 18px;
+
+    font-size: 13px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-gallery__item-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.admin-gallery__item-actions button {
+    padding: 7px 10px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+
+    background: transparent;
+
+    font: inherit;
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.admin-gallery__item-actions button:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.admin-gallery__item-actions button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.admin-gallery__item-actions
+.admin-gallery__toggle {
+    margin-left: auto;
+}
+
+.admin-gallery__item-actions
+.admin-gallery__delete {
+    color: var(--color-danger);
+}
+
+.admin-gallery__empty {
+    padding: 50px 20px;
+
+    border: 1px dashed var(--color-border);
+    border-radius: 8px;
+
+    text-align: center;
+}
+
+.admin-gallery__empty h3 {
+    margin: 0 0 8px;
+
+    font-size: 18px;
+}
+
+.admin-gallery__empty p {
+    margin: 0;
+
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+@media (max-width: 1100px) {
+    .admin-gallery__grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-gallery__form {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-gallery__form > button {
+        width: fit-content;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-gallery__main {
+        margin-left: 0;
+        padding: 24px;
+    }
+
+    .admin-gallery__form {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-gallery__form > button {
+        width: 100%;
+    }
+
+    .admin-gallery__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-gallery__list-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+.admin-gallery__preview {
+    width: 240px;
+    height: 180px;
+
+    margin-bottom: 24px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    background: var(--color-surface);
+}
+
+.admin-gallery__preview img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}

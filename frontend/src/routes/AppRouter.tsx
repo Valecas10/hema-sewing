@@ -24,6 +24,7 @@ import AdminOrders from "../pages/Admin/AdminOrders/AdminOrders";
 import AdminOrderDetail from "../pages/Admin/AdminOrderDetail/AdminOrderDetail";
 import AdminContact from "../pages/Admin/AdminContact/AdminContact";
 import Contact from "../pages/Contact/Contact";
+import AdminGallery from "../pages/Admin/AdminGallery/AdminGallery";
 
 export default function AppRouter() {
     return (
@@ -150,6 +151,11 @@ export default function AppRouter() {
                         <Route
                             path="/admin/contacto"
                             element={<AdminContact />}
+                        />
+
+                        <Route
+                            path="/admin/galeria"
+                            element={<AdminGallery />}
                         />
                     </Route>
 
