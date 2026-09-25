@@ -892,3 +892,52 @@ export async function deleteAdminGalleryImage(
         );
     }
 }
+
+export async function uploadProductImage(
+    file: File,
+    alt?: string
+): Promise<{
+    url: string;
+    alt: string;
+}> {
+    const token =
+        localStorage.getItem("adminToken");
+
+    const formData =
+        new FormData();
+
+    formData.append(
+        "image",
+        file
+    );
+
+    formData.append(
+        "alt",
+        alt ?? ""
+    );
+
+    const response =
+        await fetch(
+            `${API_URL}/admin/products/upload-image`,
+            {
+                method: "POST",
+                headers: {
+                    Authorization:
+                        `Bearer ${token}`,
+                },
+                body: formData,
+            }
+        );
+
+    const result =
+        await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo subir la imagen"
+        );
+    }
+
+    return result;
+}

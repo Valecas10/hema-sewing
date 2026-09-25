@@ -9,15 +9,27 @@ import {
     getAdminFabrics,
     getAdminProduct,
     updateAdminProduct,
+    uploadProductImage,
     type AdminCategory,
     type AdminFabric,
 } from "../../../services/adminService";
 
 import "./AdminProductForm.css";
 
+interface ProductImageForm {
+    id?: number;
+    url: string;
+    alt: string;
+    order: number;
+}
+
 function AdminProductForm() {
-    const [imageUrl, setImageUrl] = useState("");
-    
+    const [productImages, setProductImages] =
+        useState<ProductImageForm[]>([]);
+
+    const [uploadingImage, setUploadingImage] =
+        useState(false);
+
     const navigate = useNavigate();
 
     const { id } = useParams();
@@ -94,10 +106,21 @@ function AdminProductForm() {
                     setEmbroidery(
                         product.embroidery
                     );
-                    setImageUrl(
-                        product.images.length > 0
-                            ? product.images[0].url
-                            : ""
+
+                    setProductImages(
+                        product.images
+                            .sort(
+                                (a, b) =>
+                                    a.order - b.order
+                            )
+                            .map((image) => ({
+                                id: image.id,
+                                url: image.url,
+                                alt:
+                                    image.alt ??
+                                    product.name,
+                                order: image.order,
+                            }))
                     );
                 }
             } catch (error) {
@@ -113,6 +136,97 @@ function AdminProductForm() {
 
         loadData();
     }, [id]);
+
+    async function handleAddImage(
+        event: React.ChangeEvent<HTMLInputElement>
+    ) {
+        const file = event.target.files?.[0];
+
+        if (!file) {
+            return;
+        }
+
+        try {
+            setError("");
+            setUploadingImage(true);
+
+            const uploadedImage =
+                await uploadProductImage(
+                    file,
+                    name
+                );
+
+            setProductImages((currentImages) => [
+                ...currentImages,
+                {
+                    url: uploadedImage.url,
+                    alt:
+                        uploadedImage.alt ||
+                        name,
+                    order: currentImages.length,
+                },
+            ]);
+        } catch (error) {
+            setError(
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo subir la imagen."
+            );
+        } finally {
+            setUploadingImage(false);
+            event.target.value = "";
+        }
+    }
+
+    function handleRemoveImage(index: number) {
+        setProductImages((currentImages) =>
+            currentImages
+                .filter(
+                    (_, imageIndex) =>
+                        imageIndex !== index
+                )
+                .map((image, imageIndex) => ({
+                    ...image,
+                    order: imageIndex,
+                }))
+        );
+    }
+
+    function handleMoveImage(
+        index: number,
+        direction: "left" | "right"
+    ) {
+        setProductImages((currentImages) => {
+            const newImages = [...currentImages];
+
+            const newIndex =
+                direction === "left"
+                    ? index - 1
+                    : index + 1;
+
+            if (
+                newIndex < 0 ||
+                newIndex >= newImages.length
+            ) {
+                return currentImages;
+            }
+
+            [
+                newImages[index],
+                newImages[newIndex],
+            ] = [
+                newImages[newIndex],
+                newImages[index],
+            ];
+
+            return newImages.map(
+                (image, imageIndex) => ({
+                    ...image,
+                    order: imageIndex,
+                })
+            );
+        });
+    }
 
     async function handleSubmit(
         event: React.FormEvent<HTMLFormElement>
@@ -134,36 +248,27 @@ function AdminProductForm() {
                 embroidery,
             };
 
+            const images = productImages.map(
+                (image, index) => ({
+                    url: image.url,
+                    alt: image.alt || name,
+                    order: index,
+                })
+            );
+
             if (isEditing) {
                 await updateAdminProduct(
                     Number(id),
-                        {
-                            ...data,
-                            images: imageUrl.trim()
-                                ? [
-                                    {
-                                        url: imageUrl.trim(),
-                                        alt: name,
-                                        order: 0,
-                                    },
-                                ]
-                                : [],
-                        }
-                    );
+                    {
+                        ...data,
+                        images,
+                    }
+                );
             } else {
                 await createAdminProduct({
-                ...data,
-                images: imageUrl.trim()
-                    ? [
-                        {
-                            url: imageUrl.trim(),
-                            alt: name,
-                            order: 0,
-                        },
-                    ]
-                    : [],
-            });console.log("IMAGEN:", imageUrl),
-                console.log("DATOS ENVIADOS:", data)
+                    ...data,
+                    images,
+                });
             }
 
             navigate("/admin/productos");
@@ -393,24 +498,141 @@ function AdminProductForm() {
                         </div>
                     </div>
 
-                    <div className="admin-product-form__field">
-                        <label htmlFor="imageUrl">
-                            Imagen del producto
-                        </label>
+                    <div className="admin-product-form__images">
+                        <div className="admin-product-form__images-header">
+                            <div>
+                                <label>
+                                    Imágenes del producto
+                                </label>
 
-                        <input
-                            id="imageUrl"
-                            type="text"
-                            value={imageUrl}
-                            onChange={(event) =>
-                                setImageUrl(event.target.value)
-                            }
-                            placeholder="/assets/images/products/tote-01.webp"
-                        />
+                                <small>
+                                    Podés agregar varias
+                                    imágenes y ordenar
+                                    la galería.
+                                </small>
+                            </div>
 
-                        <small>
-                            Ingresá la ruta de la imagen.
-                        </small>
+                            <label className="admin-product-form__upload-button">
+                                {uploadingImage
+                                    ? "Subiendo..."
+                                    : "Agregar imagen"}
+
+                                <input
+                                    type="file"
+                                    accept="image/jpeg,image/png,image/webp,image/avif"
+                                    onChange={
+                                        handleAddImage
+                                    }
+                                    disabled={
+                                        uploadingImage
+                                    }
+                                    hidden
+                                />
+                            </label>
+                        </div>
+
+                        {productImages.length === 0 ? (
+                            <div className="admin-product-form__images-empty">
+                                <p>
+                                    Todavía no agregaste
+                                    imágenes.
+                                </p>
+                            </div>
+                        ) : (
+                            <div className="admin-product-form__images-grid">
+                                {productImages.map(
+                                    (
+                                        image,
+                                        index
+                                    ) => (
+                                        <div
+                                            className="admin-product-form__image-card"
+                                            key={
+                                                image.id ??
+                                                `${image.url}-${index}`
+                                            }
+                                        >
+                                            <div className="admin-product-form__image-preview">
+                                                <img
+                                                    src={
+                                                        image.url.startsWith(
+                                                            "/uploads"
+                                                        )
+                                                            ? `${
+                                                                import.meta
+                                                                    .env
+                                                                    .VITE_API_URL ??
+                                                                "http://localhost:3000"
+                                                            }${image.url}`
+                                                            : image.url
+                                                    }
+                                                    alt={
+                                                        image.alt ||
+                                                        name
+                                                    }
+                                                />
+
+                                                <span>
+                                                    {index ===
+                                                    0
+                                                        ? "Principal"
+                                                        : `Imagen ${
+                                                            index +
+                                                            1
+                                                        }`}
+                                                </span>
+                                            </div>
+
+                                            <div className="admin-product-form__image-actions">
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        handleMoveImage(
+                                                            index,
+                                                            "left"
+                                                        )
+                                                    }
+                                                    disabled={
+                                                        index ===
+                                                        0
+                                                    }
+                                                >
+                                                    ←
+                                                </button>
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        handleMoveImage(
+                                                            index,
+                                                            "right"
+                                                        )
+                                                    }
+                                                    disabled={
+                                                        index ===
+                                                        productImages.length -
+                                                            1
+                                                    }
+                                                >
+                                                    →
+                                                </button>
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        handleRemoveImage(
+                                                            index
+                                                        )
+                                                    }
+                                                >
+                                                    Eliminar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )
+                                )}
+                            </div>
+                        )}
                     </div>
 
                     <div className="admin-product-form__options">

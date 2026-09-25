@@ -989,3 +989,34 @@ export async function deleteGalleryImageAdmin(
         });
     }
 }
+
+export async function uploadProductImageAdmin(
+    req: AuthRequest,
+    res: Response
+) {
+    try {
+        if (!req.file) {
+            return res.status(400).json({
+                message:
+                    "No se seleccionó ninguna imagen",
+            });
+        }
+
+        return res.status(201).json({
+            url: `/uploads/products/${req.file.filename}`,
+            alt:
+                req.body.alt ??
+                req.file.originalname,
+        });
+    } catch (error) {
+        console.error(
+            "Error al subir imagen del producto:",
+            error
+        );
+
+        return res.status(500).json({
+            message:
+                "No se pudo subir la imagen",
+        });
+    }
+}

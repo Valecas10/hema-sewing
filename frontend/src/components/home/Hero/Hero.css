@@ -37,20 +37,12 @@
 }
 
 .hero__card {
+    position: relative;
+
     flex: 1;
-    overflow: hidden;
 
-    border-radius: var(--radius-lg);
+    height: 420px;
 
-    box-shadow: var(--shadow-md);
-}
-
-.hero__card:nth-child(2) {
-    margin-top: 40px;
-}
-
-.hero__card {
-    flex: 1;
     overflow: hidden;
 
     border-radius: var(--radius-lg);
@@ -60,32 +52,66 @@
     background: var(--color-background);
 }
 
-.hero__card img {
-    display: block;
+.hero__card:nth-child(2) {
+    margin-top: 40px;
+}
+
+/* 
+   Las dos imágenes ocupan exactamente
+   el mismo espacio.
+*/
+.hero__image {
+    position: absolute;
+
+    inset: 0;
 
     width: 100%;
-    height: 420px;
+    height: 100%;
 
     object-fit: cover;
-
-    animation: heroCrossover .8s ease;
 }
 
-.hero__card:hover img {
-    transform: scale(1.05);
-    transition: transform .4s ease;
+/*
+   Imagen que ya estaba visible.
+*/
+.hero__image--current {
+    z-index: 1;
+
+    opacity: 1;
 }
 
-@keyframes heroCrossover {
+/*
+   Imagen nueva que aparece por encima
+   de la anterior.
+*/
+.hero__image--incoming {
+    z-index: 2;
+
+    opacity: 0;
+
+    animation: heroCrossfade 1.5s
+        ease-in-out forwards;
+}
+
+@keyframes heroCrossfade {
     0% {
         opacity: 0;
-        transform: scale(1.03);
     }
 
     100% {
         opacity: 1;
-        transform: scale(1);
     }
+}
+
+/*
+   Mantiene el pequeño efecto de zoom
+   que ya tenía el Hero.
+*/
+.hero__card:hover .hero__image {
+    transform: scale(1.05);
+
+    transition:
+        transform .4s ease;
 }
 
 @media (max-width: 992px) {
@@ -109,6 +135,7 @@
 
     .hero__card {
         width: 100%;
+        height: 420px;
     }
 
     .hero__card:nth-child(2) {
