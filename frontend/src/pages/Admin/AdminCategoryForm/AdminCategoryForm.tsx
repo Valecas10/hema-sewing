@@ -10,6 +10,7 @@ import {
     createAdminCategory,
     getAdminCategory,
     updateAdminCategory,
+    uploadCategoryImage
 } from "../../../services/adminService";
 
 import "./AdminCategoryForm.css";
@@ -24,7 +25,10 @@ function AdminCategoryForm() {
     const [slug, setSlug] = useState("");
     const [description, setDescription] =
         useState("");
+
     const [image, setImage] = useState("");
+    const [uploadingImage, setUploadingImage] =
+        useState(false);
 
     const [loading, setLoading] =
         useState(isEditing);
@@ -59,6 +63,35 @@ function AdminCategoryForm() {
                 setLoading(false);
             });
     }, [id]);
+
+    async function handleImageUpload(
+        event: React.ChangeEvent<HTMLInputElement>
+    ) {
+        const file = event.target.files?.[0];
+
+        if (!file) {
+            return;
+        }
+
+        try {
+            setError("");
+            setUploadingImage(true);
+
+            const result =
+                await uploadCategoryImage(file);
+
+            setImage(result.url);
+        } catch (error) {
+            setError(
+                error instanceof Error
+                    ? error.message
+                    : "No se pudo subir la imagen."
+            );
+        } finally {
+            setUploadingImage(false);
+            event.target.value = "";
+        }
+    }
 
     async function handleSubmit(
         event: React.FormEvent<HTMLFormElement>
@@ -191,21 +224,50 @@ function AdminCategoryForm() {
                     </div>
 
                     <div className="admin-category-form__field">
-                        <label htmlFor="image">
-                            Imagen
+                        <label>
+                            Imagen de la categoría
                         </label>
 
-                        <input
-                            id="image"
-                            type="text"
-                            value={image}
-                            onChange={(event) =>
-                                setImage(
-                                    event.target.value
-                                )
-                            }
-                            placeholder="/assets/images/categories/..."
-                        />
+                        <label className="admin-category-form__upload-button">
+                            {uploadingImage
+                                ? "Subiendo..."
+                                : "Seleccionar imagen"}
+
+                            <input
+                                type="file"
+                                accept="image/jpeg,image/png,image/webp,image/avif"
+                                onChange={
+                                    handleImageUpload
+                                }
+                                disabled={
+                                    uploadingImage
+                                }
+                                hidden
+                            />
+                        </label>
+
+                        {image && (
+                            <div className="admin-category-form__image-preview">
+                                <img
+                                    src={
+                                        image.startsWith(
+                                            "/uploads"
+                                        )
+                                            ? `${
+                                                import.meta
+                                                    .env
+                                                    .VITE_API_URL ??
+                                                "http://localhost:3000"
+                                            }${image}`
+                                            : image
+                                    }
+                                    alt={
+                                        name ||
+                                        "Imagen de categoría"
+                                    }
+                                />
+                            </div>
+                        )}
                     </div>
 
                     <div className="admin-category-form__actions">
@@ -220,7 +282,10 @@ function AdminCategoryForm() {
                             Cancelar
                         </button>
 
-                        <button type="submit">
+                        <button
+                            type="submit"
+                            disabled={uploadingImage}
+                        >
                             {isEditing
                                 ? "Guardar cambios"
                                 : "Crear categoría"}

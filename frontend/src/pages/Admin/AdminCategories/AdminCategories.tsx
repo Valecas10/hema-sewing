@@ -22,6 +22,17 @@ function AdminCategories() {
     const [error, setError] =
         useState("");
 
+    const getImageUrl = (image: string) => {
+        if (image.startsWith("/uploads")) {
+            return `${
+                import.meta.env.VITE_API_URL ??
+                "http://localhost:3000"
+            }${image}`;
+        }
+
+        return image;
+    };
+
     useEffect(() => {
         getAdminCategories()
             .then((data) => {
@@ -142,7 +153,7 @@ function AdminCategories() {
                                         {category.image && (
                                             <img
                                                 src={
-                                                    category.image
+                                                    getImageUrl(category.image)
                                                 }
                                                 alt={
                                                     category.name

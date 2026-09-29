@@ -403,6 +403,38 @@ export async function updateAdminCategory(
     return result;
 }
 
+export async function uploadCategoryImage(
+    file: File
+): Promise<{ url: string }> {
+    const token =
+        localStorage.getItem("adminToken");
+    const formData = new FormData();
+
+    formData.append("image", file);
+
+    const response = await fetch(
+        `${API_URL}/admin/categories/upload-image`,
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+                "No se pudo subir la imagen"
+        );
+    }
+
+    return result;
+}
+
 export interface AdminFabric {
     id: number;
     name: string;

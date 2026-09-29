@@ -9,13 +9,20 @@ interface CategoryCardProps {
 }
 
 function CategoryCard({ category }: CategoryCardProps) {
+    const imageUrl = category.image?.startsWith("/uploads")
+        ? `${
+            import.meta.env.VITE_API_URL ??
+            "http://localhost:3000"
+        }${category.image}`
+        : category.image;
+
     return (
         <Link
             to={`/catalogo/${category.slug}`}
             className="category-card"
         >
             <img
-                src={category.image}
+                src={imageUrl}
                 alt={category.name}
                 className="category-card__image"
             />

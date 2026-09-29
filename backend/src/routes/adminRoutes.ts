@@ -27,7 +27,8 @@ import {
     getGalleryAdmin,
     uploadGalleryImageAdmin,
     updateGalleryImageAdmin,
-    deleteGalleryImageAdmin
+    deleteGalleryImageAdmin,
+    uploadProductImageAdmin
 } from "../controllers/adminController";
 
 import {
@@ -37,6 +38,18 @@ import {
 import {
     uploadGalleryImage,
 } from "../middleware/uploadMiddleware";
+
+import {
+    uploadProductImage,
+} from "../middleware/productUploadMiddleware";
+
+import {
+    uploadCategoryImageAdmin,
+} from "../controllers/categoryController";
+
+import {
+    uploadCategoryImage,
+} from "../middleware/categoryUploadMiddleware";
 
 const router = Router();
 
@@ -201,6 +214,20 @@ router.delete(
     "/gallery/:id",
     authenticateAdmin,
     deleteGalleryImageAdmin
+);
+
+router.post(
+    "/products/upload-image",
+    authenticateAdmin,
+    uploadProductImage.single("image"),
+    uploadProductImageAdmin
+);
+
+router.post(
+    "/categories/upload-image",
+    authenticateAdmin,
+    uploadCategoryImage.single("image"),
+    uploadCategoryImageAdmin
 );
 
 export default router;

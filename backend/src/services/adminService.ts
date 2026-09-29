@@ -73,3 +73,35 @@ export async function loginAdmin(
     };
 }
 
+export async function uploadCategoryImage(
+    file: File
+): Promise<{ url: string }> {
+    const token = localStorage.getItem("adminToken");
+
+    const formData = new FormData();
+
+    formData.append("image", file);
+
+    const response = await fetch(
+        `${connectionString}/admin/categories/upload-image`,
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message ||
+            "No se pudo subir la imagen"
+        );
+    }
+
+    return result;
+}
+
