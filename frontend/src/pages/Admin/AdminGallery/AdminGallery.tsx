@@ -436,7 +436,7 @@ function AdminGallery() {
                                                 src={
                                                     image.url.startsWith("http")
                                                         ? image.url
-                                                        : `http://localhost:3000${image.url}`
+                                                        : `${import.meta.env.VITE_API_URL}${image.url}`
                                                 }
                                                 alt={image.alt || "Imagen de galería"}
                                             />
