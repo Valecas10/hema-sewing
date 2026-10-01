@@ -90,9 +90,8 @@ router.get(
 
 router.get(
     "/fabrics",
-    getFabricsAdmin,
-    getFabricAdmin,
-    createFabricAdmin,
+    authenticateAdmin,
+    getFabricsAdmin
 );
 
 router.put(

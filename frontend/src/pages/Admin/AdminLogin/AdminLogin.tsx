@@ -13,10 +13,15 @@ function AdminLogin() {
     const [password, setPassword] =
         useState("");
 
+    const [error, setError] =
+        useState("");
+
     async function handleSubmit(
         event: React.FormEvent<HTMLFormElement>
     ) {
         event.preventDefault();
+
+        setError("");
 
         try {
             const result = await loginAdmin({
@@ -36,9 +41,10 @@ function AdminLogin() {
 
             navigate("/admin");
         } catch (error) {
-            console.error(
-                "Error al iniciar sesión:",
-                error
+            setError(
+                error instanceof Error
+                    ? error.message
+                    : "Email o contraseña incorrectos."
             );
         }
     }
@@ -68,6 +74,12 @@ function AdminLogin() {
                     className="admin-login__form"
                     onSubmit={handleSubmit}
                 >
+                    {error && (
+                        <p className="admin-login__error">
+                            {error}
+                        </p>
+                    )}
+
                     <div className="admin-login__field">
                         <label htmlFor="email">
                             Email

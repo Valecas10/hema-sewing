@@ -115,3 +115,19 @@
 .admin-login__submit:hover {
     opacity: 0.85;
 }
+
+.admin-login__error {
+    margin: 0;
+
+    padding: 12px 14px;
+
+    border: 1px solid #e74c3c;
+    border-radius: 6px;
+
+    background-color: rgba(231, 76, 60, 0.08);
+
+    color: #e74c3c;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
